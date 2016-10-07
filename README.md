@@ -1,6 +1,6 @@
 # ns-project-2016
 
 Key features:
-* Construct network from csv files (calible)
+* Construct network from csv files
 * Centrality measures
 * Modularity
