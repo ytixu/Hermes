@@ -1,5 +1,6 @@
-from utils import _add_to_graph 
 import networkx as nx
+
+from utils import _add_to_graph 
 
 def getDegreeCentrality(G, in_degree=True, preserved=True):
   dc = {}
