@@ -4,10 +4,15 @@ from construct import *
 from centrality import *
 from modularity import *
 
+def formatUsage(name):
+   return '''
+      %s -n <node-list-file> -e <edge-list-file> -i <input-graph-object-file> -o 
+
+   '''
 
 def main(argv):
    try:
-      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+      opts, args = getopt.getopt(argv[1:],'neiog:',['node-list=','edge-list=','ifile=','ofile=','gephi'])
    except getopt.GetoptError:
       print 'test.py -i <inputfile> -o <outputfile>'
       sys.exit(2)
@@ -23,5 +28,5 @@ def main(argv):
    print 'Output file is "', outputfile
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   main(sys.argv)
   
