@@ -74,3 +74,8 @@ def buildGraph(edge_list, node_list, setting, directed=False):
 
 def buildDirectedGraph(edge_list, node_list, setting):
 	return buildGraph(edge_list, node_list, setting, True)
+
+
+def dumpObject(G, file_name):
+
+def dumpToGephi(G, file_name):
