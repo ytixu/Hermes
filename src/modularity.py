@@ -1,4 +1,9 @@
 import community
 import networkx as nx
 
-def louvainModularity(G):
+from utils import _add_to_graph 
+
+def louvainModularity(G, preserved):
+  partition = community.best_partition(G)
+  if preserved:
+    _add_to_graph(G, partition, 'louvain_community')
