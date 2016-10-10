@@ -3,12 +3,12 @@
 from distutils.core import setup
 
 setup(
-	name='',
+	name='hermes',
 	version='0.1',
 	description='',
 	author='Yi Tian Xu',
 	author_email='yi.t.xu@mail.mcgill.ca',
 	url='',
-	install_requires = ['networkx', 'community'],
-	packages=['', 'test'],
+	install_requires = ['networkx'],
+	packages=['hermes', 'test'],
 )
