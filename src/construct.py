@@ -79,12 +79,12 @@ def buildDirectedGraph(edge_list, node_list, setting):
 
 def dumpGraph(G, file_name):
 	nx.write_gpickle(G, file_name)
-	
+
 def loadGraph(file_name):
 	return nx.read_gpickle(file_name)
 
 def dumpToGephi(G, file_name):
 	nx.write_gexf(G, file_name)
-	
+
 def loadFromGephi(file_name):
 	return nx.read_gexf(file_name)

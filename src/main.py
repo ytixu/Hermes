@@ -1,14 +1,20 @@
 import sys, getopt
+import ConfigParser
 
 from construct import *
 from centrality import *
 from modularity import *
 
+def getConfig():
+   config = ConfigParser.ConfigParser()
+   config.read('../config.cfg')
+   return config
+
 def formatUsage(name):
    return '''
-      %s -n <node-list-file> -e <edge-list-file> -i <input-graph-object-file> -o 
+      %s -n <node-list-file> -e <edge-list-file> -i <input-graph-object-file> -o
 
-   '''
+   ''' % (name)
 
 def main(argv):
    try:
@@ -29,4 +35,4 @@ def main(argv):
 
 if __name__ == "__main__":
    main(sys.argv)
-  
+
