@@ -19,7 +19,7 @@ def buildFromNodeList(file_name, setting, G):
 				attr_indices = {index(x, lowered_keys): x for x in intersect_keys}
 				id_index = index(setting.id, lowered_keys)
 
-				if id_index < 0:
+				# if id_index < 0:
 					# throw exception
 				continue
 
@@ -45,9 +45,9 @@ def buildFromEdgeList(file_name, setting, G):
 				source_index = index(setting.source, lowered_keys)
 				source_index = index(setting.target, lowered_keys)
 
-				if source_index < 0:
-					# throw exception
-				if target_index < 0:
+				# if source_index < 0:
+				# 	# throw exception
+				# if target_index < 0:
 					# throw exception
 				continue
 

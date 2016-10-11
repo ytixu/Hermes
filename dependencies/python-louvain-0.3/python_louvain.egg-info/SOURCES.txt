@@ -1,4 +1,5 @@
 README
+setup.cfg
 setup.py
 community/__init__.py
 python_louvain.egg-info/PKG-INFO
