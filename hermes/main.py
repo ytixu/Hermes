@@ -1,16 +1,17 @@
 import sys, getopt
 import ConfigParser
+import os.path
 
 import src.construct as construct
 import src.centrality as centrality
 import src.modularity as modularity
 
-def getConfig():
+def _getConfig():
    config = ConfigParser.ConfigParser()
-   config.read('../config.cfg')
+   config.read('config.cfg')
    return config
 
-def formatUsage(name):
+def _formatUsage(name):
    return '''Usage:
    %s -n <node-list-file> -e <edge-list-file> -d -g -i <input-graph-object-file> -g -o <output-file> <command> <command> <command> ...
 
@@ -22,9 +23,9 @@ def formatUsage(name):
    -g, --gephi\t\tinput/output in Gephi format
 
 Commands:
-   degree-centrality\t\tcompute degree centrality
-   in-degree-centrality\t\tcompute in degree centrality
-   out-degree-centrality\tcompute out degree centrality
+   degree-centrality\t\tcompute degree centrality (default in-degree if graph is directed)
+   in-degree-centrality\t\tcompute in-degree centrality
+   out-degree-centrality\tcompute out-degree centrality
    closseness-centrality\tcompute closseness centrality
    betweenness-centrality\tcompute betweenness centrality
    eigenvector-centrality\tcompute eigenvector centrality
@@ -36,22 +37,30 @@ If no command is inputted, default behanvior will compute all of the above.
 Use -h or --help to show usage information.
    ''' % (name)
 
-def validateFile(file_name):
-   return True
+def _getMethodName(name):
+   return 'get'+ ''.join(map(lambda x: x.capitalize(), name.split('-')))
 
-def formatErrorAndExit(message):
+
+def _formatErrorAndExit(message):
    print 'ERROR: %s' % (message)
    print '(Use -h or --help to show usage information.)'
    sys.exit(2)
+
+def _validateFile(file_name):
+   if os.path.isfile(file_name):
+      return True
+   else:
+      _formatErrorAndExit('File %s not found.' % (file_name))
+
 
 def main(argv):
    try:
       opts, args = getopt.getopt(argv[1:],'n:e:i:o:gphd',['node-list=','edge-list=','ifile=','ofile=','gephi','help', 'directed'])
    except getopt.GetoptError:
-      formatErrorAndExit('Invalid input options or arguments.')
+      _formatErrorAndExit('Invalid input options or arguments.')
 
-   print opts
-   print args
+   # print opts
+   # print args
 
    gephi = False
    directed = False
@@ -62,29 +71,31 @@ def main(argv):
 
    for opt, arg in opts:
       if opt in ('-h', '--help'):
-         print formatUsage(argv[0])
+         print _formatUsage(argv[0])
          sys.exit(2)
       if opt in ('-g', '--gephi'):
          gephi = True
       elif opt in ('-d', '--directed'):
          directed = True
       elif opt in ('-n', '--node-list'):
-         validateFile(arg)
+         _validateFile(arg)
          node_list = arg
       elif opt in ('-e', '--edge-list'):
-         validateFile(arg)
+         _validateFile(arg)
          edge_list = arg
       elif opt in ('-i', '--ifile'):
-         validateFile(arg)
+         _validateFile(arg)
          input_file = (arg, gephi)
          gephi = False
       elif opt in ('-o', '--ofile'):
-         validateFile(arg)
+         _validateFile(arg)
          output_file = (arg, gephi)
          gephi = False
 
    G = None
-   setting = getConfig()
+   setting = _getConfig()
+   print setting.items('Constructor')
+
    if input_file:
       print 'Loading graph %s' % input_file[0]
       if input_file[1]:
@@ -93,15 +104,25 @@ def main(argv):
          G = construct.loadGraph(input_file[0])
    elif edge_list or node_list:
       print 'Constructing graph'
-      G = construct.buildGraph(edge_list, node_list, setting, directed)
+      G = construct.buildGraph(edge_list, node_list, setting.items('Constructor'), directed)
    else:
-      formatErrorAndExit('No input file, edge list or node list.')
+      _formatErrorAndExit('No input file, edge list or node list.')
+
 
    if args:
       for command in args:
          print 'Processing command: %s' % (command)
          if command == 'modularity':
             modularity.louvainModularity(G)
+         else:
+            func_name = _getMethodName(command)
+            if func_name in centrality.__dict__:
+               if setting.has_section(func_name):
+                  centrality.__dict__[func_name](G, setting.items(func_name))
+               else:
+                  centrality.__dict__[func_name](G)
+            else:
+               _formatErrorAndExit('Invalid command %s.' % (command))
 
    if output_file:
       print 'Outputting to %s' % (output_file[0])

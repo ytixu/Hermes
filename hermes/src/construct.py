@@ -2,22 +2,18 @@ import csv
 import networkx as nx
 
 
-###
-# Build graph from node list.
-#
-#
-def buildFromNodeList(file_name, setting, G):
+def __buildFromNodeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(file_name, delimiter=setting.delimiter,
-											quotechar=setting.quotechar)
+		spamreader = csv.reader(file_name, delimiter=setting['delimiter'],
+											quotechar=setting['quotechar'])
 		attr_indices = {}
 		id_index = -1
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting.node_attributes).intersection(lowered_keys))
+				intersect_keys = list(set(setting['node_attributes']).intersection(lowered_keys))
 				attr_indices = {index(x, lowered_keys): x for x in intersect_keys}
-				id_index = index(setting.id, lowered_keys)
+				id_index = index(setting['id'], lowered_keys)
 
 				# if id_index < 0:
 					# throw exception
@@ -30,20 +26,20 @@ def buildFromNodeList(file_name, setting, G):
 	return G
 
 
-def buildFromEdgeList(file_name, setting, G):
+def _buildFromEdgeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(file_name, delimiter=setting.delimiter,
-											quotechar=setting.quotechar)
+		spamreader = csv.reader(file_name, delimiter=setting['delimiter'] if setting['delimiter'] != 'tab' else '\t',
+											quotechar=setting['quotechar'])
 		attr_indices = {}
 		source_index = -1
 		target_index = -1
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting.edge_attributes).intersection(lowered_keys))
+				intersect_keys = list(set(setting['edge_attributes']).intersection(lowered_keys))
 				attr_indices = {index(x, lowered_keys): x for x in intersect_keys}
-				source_index = index(setting.source, lowered_keys)
-				source_index = index(setting.target, lowered_keys)
+				source_index = index(setting['source'], lowered_keys)
+				source_index = index(setting['target'], lowered_keys)
 
 				# if source_index < 0:
 				# 	# throw exception
@@ -65,10 +61,10 @@ def buildGraph(edge_list, node_list, setting, directed=False):
 		G = nx.Graph()
 
 	if edge_list:
-		G = buildFromNodeList(edge_list, setting, G)
+		G = _buildFromEdgeList(edge_list, setting, G)
 
 	if node_list:
-		G = buildFromNodeList(node_list, setting, G)
+		G = _buildFromNodeList(node_list, setting, G)
 
 	return G
 
@@ -77,14 +73,21 @@ def buildDirectedGraph(edge_list, node_list, setting):
 	return buildGraph(edge_list, node_list, setting, True)
 
 
+def _formatFileName(file_name, ext):
+	try:
+		file_name.index('.' + ext)
+	except ValueError:
+		return file_name+'.'+ext
+
 def dumpGraph(G, file_name):
-	nx.write_gpickle(G, file_name)
+	if
+	nx.write_gpickle(G, _formatFileName(file_name, 'gpickle'))
 
 def loadGraph(file_name):
 	return nx.read_gpickle(file_name)
 
 def dumpToGephi(G, file_name):
-	nx.write_gexf(G, file_name)
+	nx.write_gexf(G, _formatFileName(file_name, 'gexf'))
 
 def loadFromGephi(file_name):
 	return nx.read_gexf(file_name)

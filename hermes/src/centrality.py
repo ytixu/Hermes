@@ -2,34 +2,63 @@ import networkx as nx
 
 from utils import _add_to_graph
 
-def getDegreeCentrality(G, in_degree=True, preserved=True):
-  dc = {}
-  name = ''
-  if G.__class__.__name__ == 'DiGraph':
-    if in_degree:
-      dc = nx.in_degree_centrality(G)
-      name = 'in_degree_centrality'
-    else:
-      dc = nx.out_degree_centrality(G)
-      name = 'out_degree_centrality'
-  else:
-    dc = nx.degree_centrality(G)
-    name = 'degree_centrality'
+def getDegreeCentrality(G, preserved=True, in_degree=True):
+	dc = {}
+	name = ''
+	if G.__class__.__name__ == 'DiGraph':
+		if in_degree:
+			dc = nx.in_degree_centrality(G)
+			name = 'in_degree_centrality'
+		else:
+			dc = nx.out_degree_centrality(G)
+			name = 'out_degree_centrality'
+	else:
+		dc = nx.degree_centrality(G)
+		name = 'degree_centrality'
 
-  if preserved:
-    _add_to_graph(G, dc, name)
+	if preserved:
+		_add_to_graph(G, dc, name)
 
-def getClosessnessCentrality(G, u=None, distance=None, normalized=True, preserved=True):
-  cl = nx.closeness_centrality(G, u, distance, normalized)
-  if preserved:
-    _add_to_graph(G, cl, 'closeness_centrality')
+def getInDegreeCentrality(G, preserved=True):
+	return getDegreeCentrality(G, preserved)
 
-def getBetweennessCentrality(G, k=None, normalized=True, weight=None, endpoints=False, seed=None, preserved=True):
-  bt = nx.betweenness_centrality(G, k, normalized, weight, endpoints, seed)
-  if preserved:
-    _add_to_graph(G, bt, 'betweenness_centrality')
+def getOutDegreeCentrality(G, preversed=True):
+	return getDegreeCentrality(G, preserved, False)
 
-def getEigenvectorCentrality(G, max_iter=100, tol=1e-06, nstart=None, weight='weight', preserved=True):
-  eg = nx.eigenvector_centrality(G, max_iter, tol, nstart, weight)
-  if preserved:
-    _add_to_graph(G, eg, 'eigenvector_centrality')
+def getClosessnessCentrality(G, setting, preserved=True):
+	u = setting['u'] if setting['u'] else None
+	distance = setting['distance'] if setting['distance'] else None
+	normalized = setting['normalized']
+	cl = nx.closeness_centrality(G, u, distance, normalized)
+	if preserved:
+		_add_to_graph(G, cl, 'closeness_centrality')
+
+def getBetweennessCentrality(G, setting, preserved=True):
+	k = setting['k'] if setting['k'] else None
+	normalized = setting['normalized']
+	weight = setting['weight'] if setting['weight'] else None
+	endpoints = setting['endpoints']
+	seed = setting['seed'] if setting['seed'] else None
+	bt = nx.betweenness_centrality(G, k, normalized, weight, endpoints, seed)
+	if preserved:
+		_add_to_graph(G, bt, 'betweenness_centrality')
+
+def getEigenvectorCentrality(G, setting, preserved=True):
+	max_iter = int(setting['max_iter'])
+	tol = float(setting['tol'])
+	nstart = setting['nstart'] if setting['nstart'] else None
+	weight = setting['weight']
+	eg = nx.eigenvector_centrality(G, max_iter, tol, nstart, weight)
+	if preserved:
+		_add_to_graph(G, eg, 'eigenvector_centrality')
+
+def getCentrality(G, setting, preserved=True):
+	if G.__class__.__name__ == 'DiGraph':
+		getInDegreeCentrality(G, preserved)
+		getOutDegreeCentrality(G, preversed)
+	else:
+		getDegreeCentrality(G, preserved)
+
+	getClosessnessCentrality(G, setting, preserved)
+	getBetweennessCentrality(G, setting, preserved)
+	getEigenvectorCentrality(G, setting, preserved)

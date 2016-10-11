@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
 	name='hermes',
@@ -8,7 +8,7 @@ setup(
 	description='',
 	author='Yi Tian Xu',
 	author_email='yi.t.xu@mail.mcgill.ca',
-	url='',
-	install_requires = ['networkx'],
+	url='https://github.com/ytixu/ns-project-2016',
+	install_requires = ['networkx', 'python-louvain'],
 	packages=['hermes', 'test'],
 )
