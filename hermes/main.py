@@ -111,20 +111,22 @@ def main(argv):
       _formatErrorAndExit('No input file, edge list or node list.')
 
 
-   if args:
-      for command in args:
-         print 'Processing command: %s' % (command)
-         if command == 'modularity':
-            modularity.louvainModularity(G)
-         else:
-            func_name = _getMethodName(command)
-            if func_name in centrality.__dict__:
-               if setting.has_section(func_name):
-                  centrality.__dict__[func_name](G, setting.items(func_name))
-               else:
-                  centrality.__dict__[func_name](G)
+   if not args:
+      args = ['centrality', 'modularity']
+
+   for command in args:
+      print 'Processing command: %s' % (command)
+      if command == 'modularity':
+         modularity.louvainModularity(G)
+      else:
+         func_name = _getMethodName(command)
+         if func_name in centrality.__dict__:
+            if setting.has_section(func_name):
+               centrality.__dict__[func_name](G, setting.items(func_name))
             else:
-               _formatErrorAndExit('Invalid command %s.' % (command))
+               centrality.__dict__[func_name](G)
+         else:
+            _formatErrorAndExit('Invalid command %s.' % (command))
 
    if output_file:
       print 'Outputting to %s' % (output_file[0])
