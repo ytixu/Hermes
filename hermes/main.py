@@ -1,14 +1,16 @@
 import sys, getopt
 import ConfigParser
-import os.path
+import os.path as op
 
-import src.construct as construct
-import src.centrality as centrality
-import src.modularity as modularity
+import hermes
+import hermes.src.construct as construct
+import hermes.src.centrality as centrality
+import hermes.src.modularity as modularity
 
 def _getConfig():
+   packagedir = hermes.__path__[0]
    config = ConfigParser.ConfigParser()
-   config.read('config.cfg')
+   config.read(op.join(packagedir,'config.cfg'))
    return config
 
 def _formatUsage(name):
@@ -47,7 +49,7 @@ def _formatErrorAndExit(message):
    sys.exit(2)
 
 def _validateFile(file_name):
-   if os.path.isfile(file_name):
+   if op.isfile(file_name):
       return True
    else:
       _formatErrorAndExit('File %s not found.' % (file_name))

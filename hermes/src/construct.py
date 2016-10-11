@@ -80,7 +80,6 @@ def _formatFileName(file_name, ext):
 		return file_name+'.'+ext
 
 def dumpGraph(G, file_name):
-	if
 	nx.write_gpickle(G, _formatFileName(file_name, 'gpickle'))
 
 def loadGraph(file_name):
