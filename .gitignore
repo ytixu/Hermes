@@ -3,3 +3,5 @@ hermes.egg-info/*
 dist/*
 out.*
 test/data/*
+hermes/src/*.pyc
+hermes/*.pyc
