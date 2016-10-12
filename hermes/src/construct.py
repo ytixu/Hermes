@@ -2,18 +2,19 @@ import csv
 import networkx as nx
 
 
-def __buildFromNodeList(file_name, setting, G):
+def _buildFromNodeList(file_name, setting, G):
+	print setting
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(file_name, delimiter=setting['delimiter'],
-											quotechar=setting['quotechar'])
+		spamreader = csv.reader(csv_file, delimiter=setting('delimiter') if setting('delimiter') != 'tab' else '\t',
+											quotechar=setting('quotechar'))
 		attr_indices = {}
 		id_index = -1
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting['node_attributes']).intersection(lowered_keys))
-				attr_indices = {index(x, lowered_keys): x for x in intersect_keys}
-				id_index = index(setting['id'], lowered_keys)
+				intersect_keys = list(set(setting('node_attributes')).intersection(lowered_keys))
+				attr_indices = {lowered_keys.index(x): x for x in intersect_keys}
+				id_index = lowered_keys.index(setting('id'))
 
 				# if id_index < 0:
 					# throw exception
@@ -28,18 +29,18 @@ def __buildFromNodeList(file_name, setting, G):
 
 def _buildFromEdgeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(file_name, delimiter=setting['delimiter'] if setting['delimiter'] != 'tab' else '\t',
-											quotechar=setting['quotechar'])
+		spamreader = csv.reader(csv_file, delimiter=setting('delimiter') if setting('delimiter') != 'tab' else '\t',
+											quotechar=setting('quotechar'))
 		attr_indices = {}
 		source_index = -1
 		target_index = -1
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting['edge_attributes']).intersection(lowered_keys))
-				attr_indices = {index(x, lowered_keys): x for x in intersect_keys}
-				source_index = index(setting['source'], lowered_keys)
-				source_index = index(setting['target'], lowered_keys)
+				intersect_keys = list(set(setting('edge_attributes')).intersection(lowered_keys))
+				attr_indices = {lowered_keys.index(x): x for x in intersect_keys}
+				source_index = lowered_keys.index(setting('source'))
+				source_index = lowered_keys.index(setting('target'))
 
 				# if source_index < 0:
 				# 	# throw exception

@@ -1,6 +1,6 @@
 import networkx as nx
 
-from utils import _add_to_graph
+from utils import _add_to_graph, _get_section_config
 
 def getDegreeCentrality(G, preserved=True, in_degree=True):
 	dc = {}
@@ -25,29 +25,29 @@ def getInDegreeCentrality(G, preserved=True):
 def getOutDegreeCentrality(G, preversed=True):
 	return getDegreeCentrality(G, preserved, False)
 
-def getClosessnessCentrality(G, setting, preserved=True):
-	u = setting['u'] if setting['u'] else None
-	distance = setting['distance'] if setting['distance'] else None
-	normalized = setting['normalized']
+def getClosenessCentrality(G, setting, preserved=True):
+	u = setting('u') if setting('u') else None
+	distance = setting('distance') if setting('distance') else None
+	normalized = setting('normalized')
 	cl = nx.closeness_centrality(G, u, distance, normalized)
 	if preserved:
 		_add_to_graph(G, cl, 'closeness_centrality')
 
 def getBetweennessCentrality(G, setting, preserved=True):
-	k = setting['k'] if setting['k'] else None
-	normalized = setting['normalized']
-	weight = setting['weight'] if setting['weight'] else None
-	endpoints = setting['endpoints']
-	seed = setting['seed'] if setting['seed'] else None
+	k = setting('k') if setting('k') else None
+	normalized = setting('normalized')
+	weight = setting('weight') if setting('weight') else None
+	endpoints = setting('endpoints')
+	seed = setting('seed') if setting('seed') else None
 	bt = nx.betweenness_centrality(G, k, normalized, weight, endpoints, seed)
 	if preserved:
 		_add_to_graph(G, bt, 'betweenness_centrality')
 
 def getEigenvectorCentrality(G, setting, preserved=True):
-	max_iter = int(setting['max_iter'])
-	tol = float(setting['tol'])
-	nstart = setting['nstart'] if setting['nstart'] else None
-	weight = setting['weight']
+	max_iter = int(setting('max_iter'))
+	tol = float(setting('tol'))
+	nstart = setting('nstart') if setting('nstart') else None
+	weight = setting('weight')
 	eg = nx.eigenvector_centrality(G, max_iter, tol, nstart, weight)
 	if preserved:
 		_add_to_graph(G, eg, 'eigenvector_centrality')
@@ -59,6 +59,6 @@ def getCentrality(G, setting, preserved=True):
 	else:
 		getDegreeCentrality(G, preserved)
 
-	getClosessnessCentrality(G, setting, preserved)
-	getBetweennessCentrality(G, setting, preserved)
-	getEigenvectorCentrality(G, setting, preserved)
+	getClosenessCentrality(G, _get_section_config(setting, 'getClosenessCentrality'), preserved)
+	getBetweennessCentrality(G, _get_section_config(setting, 'getBetweennessCentrality'), preserved)
+	getEigenvectorCentrality(G, _get_section_config(setting, 'getEigenvectorCentrality'), preserved)

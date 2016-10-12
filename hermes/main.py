@@ -6,6 +6,7 @@ import hermes
 import hermes.src.construct as construct
 import hermes.src.centrality as centrality
 import hermes.src.modularity as modularity
+from hermes.src.utils import _get_section_config
 
 def _getConfig():
    packagedir = hermes.__path__[0]
@@ -28,7 +29,7 @@ Commands:
    degree-centrality\t\tcompute degree centrality (default in-degree if graph is directed)
    in-degree-centrality\t\tcompute in-degree centrality
    out-degree-centrality\tcompute out-degree centrality
-   closseness-centrality\tcompute closseness centrality
+   closeness-centrality\tcompute closeness centrality
    betweenness-centrality\tcompute betweenness centrality
    eigenvector-centrality\tcompute eigenvector centrality
    centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
@@ -53,7 +54,6 @@ def _validateFile(file_name):
       return True
    else:
       _formatErrorAndExit('File %s not found.' % (file_name))
-
 
 def main(argv):
    try:
@@ -96,7 +96,6 @@ def main(argv):
 
    G = None
    setting = _getConfig()
-   print setting.items('Constructor')
 
    if input_file:
       print 'Loading graph %s' % input_file[0]
@@ -106,7 +105,7 @@ def main(argv):
          G = construct.loadGraph(input_file[0])
    elif edge_list or node_list:
       print 'Constructing graph'
-      G = construct.buildGraph(edge_list, node_list, setting.items('Constructor'), directed)
+      G = construct.buildGraph(edge_list, node_list, _get_section_config(setting, 'Constructor'), directed)
    else:
       _formatErrorAndExit('No input file, edge list or node list.')
 
@@ -118,11 +117,13 @@ def main(argv):
       print 'Processing command: %s' % (command)
       if command == 'modularity':
          modularity.louvainModularity(G)
+      elif command == 'centrality':
+         centrality.getCentrality(G, setting)
       else:
          func_name = _getMethodName(command)
          if func_name in centrality.__dict__:
             if setting.has_section(func_name):
-               centrality.__dict__[func_name](G, setting.items(func_name))
+               centrality.__dict__[func_name](G, _get_section_config(setting, func_name))
             else:
                centrality.__dict__[func_name](G)
          else:
