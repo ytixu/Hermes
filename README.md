@@ -8,6 +8,8 @@ Key features:
 * Preform community detection using Louvain method
 * Output to GEXF format
 
+![Example graph from test visualized with Gephi](https://ytixu.github.io/Hermes/docs/example-graph.png)
+
 ## Quick start
 
 ### Installation
@@ -33,7 +35,6 @@ To test Hermes, run
 	make test_hermes
 
 This will call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``. Then, the command ``hermes`` will be triggered to create the output, ``out.gexf``, with all centrality measures and detected communities as node attributes.
-
 
 ## Documentation
 
