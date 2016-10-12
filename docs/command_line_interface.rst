@@ -1,5 +1,5 @@
 
-Command Line Interface
+Command-Line Interface
 ======================
 
 ``hermes`` works as the follwing:
@@ -18,7 +18,7 @@ Run ``hermes -h`` to display usage information on the command line.
 Input file options and requirements
 -----------------------------------
 
-``.gpickled`` and ``.gexf`` files should be usually generated from NetworkX's ```write_gpickle`` <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html>`_ and ```write_gexf`` <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html>`_ methods respectively. Use the option ``-i or --ifile`` to input ``.gpickled`` file. Add ``-g`` before the option to indicate that the file has extension ``.gexf``.
+``.gpickled`` and ``.gexf`` files should be usually generated from NetworkX's `write_gpickle <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html>`_ and `write_gexf <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html>`_ methods respectively. Use the option ``-i`` or ``--ifile`` to input ``.gpickled`` file. Add ``-g`` before the option to indicate that the file has extension ``.gexf``.
 
 For ``.csv`` input file, two formats are accepted.
 
@@ -26,7 +26,7 @@ For ``.csv`` input file, two formats are accepted.
 1. The edge-list format
 ***********************
 
-Edge-lists must have a header that includes ``source`` and ``target``, indicating the column for the unique indentifiers of the source and target nodes. ``label`` and ``weight`` can also be added as edge attributes.
+Edge-lists must have a header that includes ``source`` and ``target``, indicating the column for the unique indentifiers of the source and target nodes. ``label`` and ``weight`` can also be added as edge attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
 Use ``-e`` or ``--edge-list`` to input file of this format.
 
@@ -46,7 +46,7 @@ Example::
 2. The node-list format
 ***********************
 
-Note-lists must have a header that includes ``id``, indicating the column for the unique indentifier of the node. ``label`` and ``weight`` can also be added as node attributes.
+Note-lists must have a header that includes ``id``, indicating the column for the unique indentifier of the node. ``label`` and ``weight`` can also be added as node attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
 Use ``-n`` or ``--node-list`` to input file of this format.
 

@@ -36,6 +36,7 @@ Commands:
    eigenvector-centrality\tcompute eigenvector centrality
    centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
    modularity\t\t\tpreform community detection
+   no-command\t\tdo not preform any of the commands
 
 If no command is inputted, hermes will compute all of the above.
 
@@ -92,7 +93,6 @@ def main(argv):
          input_file = (arg, gephi)
          gephi = False
       elif opt in ('-o', '--ofile'):
-         _validateFile(arg)
          output_file = (arg, gephi)
          gephi = False
 
@@ -116,6 +116,8 @@ def main(argv):
       args = ['centrality', 'modularity']
 
    for command in args:
+      if command == 'no-command':
+         break
       print 'Processing command: %s' % (command)
       if command == 'modularity':
          modularity.louvainModularity(G)
