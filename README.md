@@ -1,4 +1,4 @@
-# ns-project-2016
+# Hermes 0.1
 
 Key features:
 * Construct network from csv files
