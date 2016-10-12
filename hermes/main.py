@@ -14,16 +14,18 @@ def _getConfig():
    config.read(op.join(packagedir,'config.cfg'))
    return config
 
-def _formatUsage(name):
+def _formatUsage():
    return '''Usage:
-   %s -n <node-list-file> -e <edge-list-file> -d -g -i <input-graph-object-file> -g -o <output-file> <command> <command> <command> ...
+   hermes -n <node-list-file> -e <edge-list-file> -d -g -i <input-graph-object-file> -g -o <output-file> <command> <command> <command> ...
 
    -n, --node-list\tinput node list file name (csv)
    -e, --edge-list\tinput edge list file name (csv)
-   -d, --deirected\tconstuct directed graph
+   -d, --directed\tconstuct directed graph
    -i, --ifile\t\tinput object file name (for pickle or Gephi format)
    -o, --ofile\t\toutput file name (for pickle or Gephi format) (default = out.gefx)
    -g, --gephi\t\tinput/output in Gephi format
+
+If no output file is inputted, hermes will output to out.gexf.
 
 Commands:
    degree-centrality\t\tcompute degree centrality (default in-degree if graph is directed)
@@ -35,10 +37,10 @@ Commands:
    centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
    modularity\t\t\tpreform community detection
 
-If no command is inputted, default behanvior will compute all of the above.
+If no command is inputted, hermes will compute all of the above.
 
 Use -h or --help to show usage information.
-   ''' % (name)
+   '''
 
 def _getMethodName(name):
    return 'get'+ ''.join(map(lambda x: x.capitalize(), name.split('-')))
@@ -73,7 +75,7 @@ def main(argv):
 
    for opt, arg in opts:
       if opt in ('-h', '--help'):
-         print _formatUsage(argv[0])
+         print _formatUsage()
          sys.exit(2)
       if opt in ('-g', '--gephi'):
          gephi = True
