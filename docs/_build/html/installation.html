@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hermes 0.1 documentation" href="index.html" />
     <link rel="next" title="Command Line Interface" href="command_line_interface.html" />
-    <link rel="prev" title="Welcome to hermes’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Hermes 0.1" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,7 +38,7 @@
           <a href="command_line_interface.html" title="Command Line Interface"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to hermes’s documentation!"
+          <a href="index.html" title="Hermes 0.1"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -51,9 +51,9 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Clone the github repository or download the source code from here.</p>
-<p><a class="reference external" href="https://github.com/ytixu/ns-project-2016">https://github.com/ytixu/ns-project-2016</a></p>
-<p>Go to the directory <tt class="docutils literal"><span class="pre">ns-project-2016</span></tt> and run:</p>
+<p>Clone the github repository or download the source code from</p>
+<p><a class="reference external" href="https://github.com/ytixu/Hermes">https://github.com/ytixu/Hermes</a></p>
+<p>Go to the directory <tt class="docutils literal"><span class="pre">/Hermes</span></tt> and run:</p>
 <div class="highlight-python"><div class="highlight"><pre>make install
 </pre></div>
 </div>
@@ -62,17 +62,16 @@
 </pre></div>
 </div>
 <p>depending on permission settings on your computer.</p>
-<p>Note that Hermes depends on the Python package NetworkX and python-louvain. If those are found to be missing, the above command will automatically install them for you.</p>
-<p>To visialize the output graphs, you may download Gephi from here</p>
-<hr class="docutils" />
-<p>You may also choose choose any visualization tool that support <tt class="docutils literal"><span class="pre">.gexf</span></tt> file.</p>
+<p>Note that Hermes depends on the Python package <a class="reference external" href="https://networkx.github.io/">NetworkX (&gt;= 1.11)</a> and <a class="reference external" href="http://perso.crans.org/aynaud/communities/">python-louvain (&gt;= 0.5)</a>. If those are found to be missing, the above command will automatically install them for you.</p>
+<p>It may be possible that older versions of NetworkX can work with the Hermes&#8217; current implementation. We leave the user the freedom to modify the version requirement in <tt class="docutils literal"><span class="pre">/Hermes/Makefile</span></tt>. Nonetheless, future version of Hermes may invoke features of NetworkX that are only available in its latest release.</p>
+<p>To visialize the output graphs, you may download <a class="reference external" href="https://gephi.org/">Gephi</a>. You may also choose choose any visualization tool that supports GEXF (Graph Exchange XML Format).</p>
 <div class="section" id="testing-hermes">
 <h2>Testing Hermes<a class="headerlink" href="#testing-hermes" title="Permalink to this headline">¶</a></h2>
 <p>To test Hermes, run:</p>
 <div class="highlight-python"><div class="highlight"><pre>make test_hermes
 </pre></div>
 </div>
-<p>This will call <tt class="docutils literal"><span class="pre">test/test.py</span></tt> to create a random edge-list and a node-list under the directory <tt class="docutils literal"><span class="pre">test/data</span></tt>. Then, command <tt class="docutils literal"><span class="pre">hermes</span></tt> will be triggered to create the output, <tt class="docutils literal"><span class="pre">out.gexf</span></tt>, with all centrality measures and detected communities as node attributes.</p>
+<p>This will call <tt class="docutils literal"><span class="pre">/Hermes/test/test.py</span></tt> to create a random edge-list and a node-list under the directory <tt class="docutils literal"><span class="pre">/Hermes/test/data</span></tt>. Then, command <tt class="docutils literal"><span class="pre">hermes</span></tt> will be triggered to create the output, <tt class="docutils literal"><span class="pre">out.gexf</span></tt>, with all centrality measures and detected communities as node attributes.</p>
 </div>
 </div>
 
@@ -92,7 +91,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to hermes&#8217;s documentation!</a></p>
+                        title="previous chapter">Hermes 0.1</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="command_line_interface.html"
                         title="next chapter">Command Line Interface</a></p>
@@ -128,7 +127,7 @@
           <a href="command_line_interface.html" title="Command Line Interface"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to hermes’s documentation!"
+          <a href="index.html" title="Hermes 0.1"
              >previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>

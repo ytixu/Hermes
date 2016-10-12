@@ -3,7 +3,6 @@ import networkx as nx
 
 
 def _buildFromNodeList(file_name, setting, G):
-	print setting
 	with open(file_name, 'r') as csv_file:
 		spamreader = csv.reader(csv_file, delimiter=setting('delimiter') if setting('delimiter') != 'tab' else '\t',
 											quotechar=setting('quotechar'))

@@ -2,11 +2,11 @@
 Installation
 ============
 
-Clone the github repository or download the source code from here.
+Clone the github repository or download the source code from
 
-https://github.com/ytixu/ns-project-2016
+https://github.com/ytixu/Hermes
 
-Go to the directory ``ns-project-2016`` and run::
+Go to the directory ``/Hermes`` and run::
 
 	make install
 
@@ -16,13 +16,11 @@ or::
 
 depending on permission settings on your computer.
 
-Note that Hermes depends on the Python package NetworkX and python-louvain. If those are found to be missing, the above command will automatically install them for you.
+Note that Hermes depends on the Python package `NetworkX (>= 1.11) <https://networkx.github.io/>`_ and `python-louvain (>= 0.5) <http://perso.crans.org/aynaud/communities/>`_. If those are found to be missing, the above command will automatically install them for you.
 
-To visialize the output graphs, you may download Gephi from here
+It may be possible that older versions of NetworkX can work with the Hermes' current implementation. We leave the user the freedom to modify the version requirement in ``/Hermes/Makefile``. Nonetheless, future version of Hermes may invoke features of NetworkX that are only available in its latest release.
 
-///////////
-
-You may also choose choose any visualization tool that support ``.gexf`` file.
+To visialize the output graphs, you may download `Gephi <https://gephi.org/>`_. You may also choose choose any visualization tool that supports GEXF (Graph Exchange XML Format).
 
 --------------
 Testing Hermes
@@ -32,5 +30,4 @@ To test Hermes, run::
 
 	make test_hermes
 
-This will call ``test/test.py`` to create a random edge-list and a node-list under the directory ``test/data``. Then, command ``hermes`` will be triggered to create the output, ``out.gexf``, with all centrality measures and detected communities as node attributes.
-
+This will call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``. Then, command ``hermes`` will be triggered to create the output, ``out.gexf``, with all centrality measures and detected communities as node attributes.

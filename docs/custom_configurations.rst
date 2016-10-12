@@ -2,7 +2,7 @@
 Customize Hermes
 ================
 
-You can locate Hermes' configuration file ``hermes/config.cfg``.::
+You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once Hermes package is installed, you can also find the configuation file in the ``/Hermes/build`` directory.::
 
 	[Constructor]
 	delimiter = ,

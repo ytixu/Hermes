@@ -10,7 +10,7 @@ setup(
 	author='Yi Tian Xu',
 	author_email='yi.t.xu@mail.mcgill.ca',
 	url='https://github.com/ytixu/ns-project-2016',
-	install_requires = ['networkx', 'python-louvain'],
+	install_requires = ['networkx>=1.11', 'python-louvain>=0.5'],
 	packages=['hermes', 'hermes.src'],
 	scripts=['script/hermes']
 )

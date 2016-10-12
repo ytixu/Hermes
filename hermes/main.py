@@ -28,7 +28,7 @@ def _formatUsage():
 If no output file is inputted, hermes will output to out.gexf.
 
 Commands:
-   degree-centrality\t\tcompute degree centrality (default in-degree if graph is directed)
+   degree-centrality\t\tcompute degree centrality (default to in-degree if the graph is directed)
    in-degree-centrality\t\tcompute in-degree centrality
    out-degree-centrality\tcompute out-degree centrality
    closeness-centrality\tcompute closeness centrality

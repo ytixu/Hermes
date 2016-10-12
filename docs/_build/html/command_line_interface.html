@@ -51,12 +51,12 @@
             
   <div class="section" id="command-line-interface">
 <h1>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
-<p>The <tt class="docutils literal"><span class="pre">hermes</span></tt> pipeline works as the follwing</p>
-<ul class="simple">
+<p><tt class="docutils literal"><span class="pre">hermes</span></tt> works as the follwing:</p>
+<ol class="arabic simple">
 <li>Build graph from <tt class="docutils literal"><span class="pre">.csv</span></tt>, <tt class="docutils literal"><span class="pre">.gexf</span></tt> or <tt class="docutils literal"><span class="pre">.gpickled</span></tt> file</li>
 <li>Run centrality measure statistics and/or community detection</li>
 <li>Output graph to <tt class="docutils literal"><span class="pre">.gpickle</span></tt> or <tt class="docutils literal"><span class="pre">.gexf</span></tt> file</li>
-</ul>
+</ol>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre>hermes -n &lt;node-list-file&gt; -e &lt;edge-list-file&gt; -d -g -i &lt;input-graph-object-file&gt; -g -o &lt;output-file&gt; &lt;command&gt; &lt;command&gt; &lt;command&gt; ...
 </pre></div>
@@ -64,45 +64,45 @@
 <p>Run <tt class="docutils literal"><span class="pre">hermes</span> <span class="pre">-h</span></tt> to display usage information on the command line.</p>
 <div class="section" id="input-file-options-and-requirements">
 <h2>Input file options and requirements<a class="headerlink" href="#input-file-options-and-requirements" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">.gpickled</span></tt> and <tt class="docutils literal"><span class="pre">.gexf</span></tt> are usually files generated from NetworkX&#8217;s <tt class="docutils literal"><span class="pre">write_gpickle</span></tt> and <tt class="docutils literal"><span class="pre">white_gexf</span></tt> methods respectively. Use the option <tt class="docutils literal"><span class="pre">-i</span> <span class="pre">or</span> <span class="pre">--ifile</span></tt> to input <tt class="docutils literal"><span class="pre">.gpickled</span></tt> file. Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to indicate that the file has extension <tt class="docutils literal"><span class="pre">.gexf</span></tt>.</p>
-<p>For <tt class="docutils literal"><span class="pre">.csv</span></tt> input file, two formats are used.</p>
+<p><tt class="docutils literal"><span class="pre">.gpickled</span></tt> and <tt class="docutils literal"><span class="pre">.gexf</span></tt> files should be usually generated from NetworkX&#8217;s <tt class="docutils literal"><span class="pre">`write_gpickle</span></tt> &lt;<a class="reference external" href="http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html">http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html</a>&gt;`_ and <tt class="docutils literal"><span class="pre">`write_gexf</span></tt> &lt;<a class="reference external" href="http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html">http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html</a>&gt;`_ methods respectively. Use the option <tt class="docutils literal"><span class="pre">-i</span> <span class="pre">or</span> <span class="pre">--ifile</span></tt> to input <tt class="docutils literal"><span class="pre">.gpickled</span></tt> file. Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to indicate that the file has extension <tt class="docutils literal"><span class="pre">.gexf</span></tt>.</p>
+<p>For <tt class="docutils literal"><span class="pre">.csv</span></tt> input file, two formats are accepted.</p>
 <div class="section" id="the-edge-list-format">
 <h3>1. The edge-list format<a class="headerlink" href="#the-edge-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Edge list must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added.</p>
+<p>Edge-lists must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>, indicating the column for the unique indentifiers of the source and target nodes. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as edge attributes.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-e</span></tt> or <tt class="docutils literal"><span class="pre">--edge-list</span></tt> to input file of this format.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-d</span></tt> or <tt class="docutils literal"><span class="pre">--directed</span></tt> to indicate that the graph is directed.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">weigth</span>
 <span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">opal</span><span class="p">,</span><span class="mi">57</span>
-<span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">lemon</span><span class="p">,</span><span class="mi">99</span>
+<span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="n">malachite</span><span class="p">,</span><span class="mi">99</span>
 <span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="n">indigo</span><span class="p">,</span><span class="mi">75</span>
-<span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="n">methane</span><span class="p">,</span><span class="mi">48</span>
-<span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">ivy</span><span class="p">,</span><span class="mi">14</span>
+<span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="n">arsenic</span><span class="p">,</span><span class="mi">48</span>
+<span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">ivory</span><span class="p">,</span><span class="mi">14</span>
 <span class="o">...</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="the-node-list-format">
 <h3>2. The node-list format<a class="headerlink" href="#the-node-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Note list must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added.</p>
+<p>Note-lists must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>, indicating the column for the unique indentifier of the node. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as node attributes.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-n</span></tt> or <tt class="docutils literal"><span class="pre">--node-list</span></tt> to input file of this format.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">id</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">weigth</span>
 <span class="mi">1</span><span class="p">,</span><span class="n">Lemuria</span><span class="p">,</span><span class="mi">323</span>
-<span class="mi">2</span><span class="p">,</span><span class="n">Cyclopean</span><span class="p">,</span><span class="mi">665</span>
+<span class="mi">2</span><span class="p">,</span><span class="n">Avalon</span><span class="p">,</span><span class="mi">665</span>
 <span class="mi">3</span><span class="p">,</span><span class="n">Babylon</span><span class="p">,</span><span class="mi">60</span>
 <span class="mi">4</span><span class="p">,</span><span class="n">Atlantis</span><span class="p">,</span><span class="mi">33</span>
 <span class="mi">5</span><span class="p">,</span><span class="n">Montreal</span><span class="p">,</span><span class="mi">4</span>
 <span class="o">...</span>
 </pre></div>
 </div>
-<p>Note that edge-list and node-list can be used at the same time.</p>
+<p>Node-lists allow users to specify more information about the nodes. Therefore, they are usually accompanied with an edge-list. When using both at the same time, user should make sure that the unique indentifiers match between the two files.</p>
 </div>
 </div>
 <div class="section" id="output-file-options">
 <h2>Output file options<a class="headerlink" href="#output-file-options" title="Permalink to this headline">¶</a></h2>
-<p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (extension can be ommitted). Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to output in <tt class="docutils literal"><span class="pre">.gexf</span></tt> format, otherwise hermes will output in <tt class="docutils literal"><span class="pre">.gpickle</span></tt> format.</p>
-<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out.gexf</span></tt> (in <tt class="docutils literal"><span class="pre">.gexf</span></tt> format) by defaut.</p>
+<p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (file extension can be ommitted). Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to output in GEXF format, otherwise hermes will output a <tt class="docutils literal"><span class="pre">.gpickle</span></tt> file.</p>
+<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out.gexf</span></tt> (in GEXF format) by defaut.</p>
 </div>
 <div class="section" id="command-arguments">
 <h2>Command arguments<a class="headerlink" href="#command-arguments" title="Permalink to this headline">¶</a></h2>

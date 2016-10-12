@@ -2,11 +2,11 @@
 Command Line Interface
 ======================
 
-The ``hermes`` pipeline works as the follwing
+``hermes`` works as the follwing:
 
-* Build graph from ``.csv``, ``.gexf`` or ``.gpickled`` file
-* Run centrality measure statistics and/or community detection
-* Output graph to ``.gpickle`` or ``.gexf`` file
+1. Build graph from ``.csv``, ``.gexf`` or ``.gpickled`` file
+2. Run centrality measure statistics and/or community detection
+3. Output graph to ``.gpickle`` or ``.gexf`` file
 
 Usage::
 
@@ -18,15 +18,15 @@ Run ``hermes -h`` to display usage information on the command line.
 Input file options and requirements
 -----------------------------------
 
-``.gpickled`` and ``.gexf`` are usually files generated from NetworkX's ``write_gpickle`` and ``white_gexf`` methods respectively. Use the option ``-i or --ifile`` to input ``.gpickled`` file. Add ``-g`` before the option to indicate that the file has extension ``.gexf``.
+``.gpickled`` and ``.gexf`` files should be usually generated from NetworkX's ```write_gpickle`` <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html>`_ and ```write_gexf`` <http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html>`_ methods respectively. Use the option ``-i or --ifile`` to input ``.gpickled`` file. Add ``-g`` before the option to indicate that the file has extension ``.gexf``.
 
-For ``.csv`` input file, two formats are used.
+For ``.csv`` input file, two formats are accepted.
 
 ***********************
 1. The edge-list format
 ***********************
 
-Edge list must have a header that includes ``source`` and ``target``. ``label`` and ``weight`` can also be added.
+Edge-lists must have a header that includes ``source`` and ``target``, indicating the column for the unique indentifiers of the source and target nodes. ``label`` and ``weight`` can also be added as edge attributes.
 
 Use ``-e`` or ``--edge-list`` to input file of this format.
 
@@ -36,17 +36,17 @@ Example::
 
 	source,target,label,weigth
 	1,5,opal,57
-	1,7,lemon,99
+	1,7,malachite,99
 	1,8,indigo,75
-	1,12,methane,48
-	1,6,ivy,14
+	1,12,arsenic,48
+	1,6,ivory,14
 	...
 
 ***********************
 2. The node-list format
 ***********************
 
-Note list must have a header that includes ``id``. ``label`` and ``weight`` can also be added.
+Note-lists must have a header that includes ``id``, indicating the column for the unique indentifier of the node. ``label`` and ``weight`` can also be added as node attributes.
 
 Use ``-n`` or ``--node-list`` to input file of this format.
 
@@ -54,23 +54,21 @@ Example::
 
 	id,label,weigth
 	1,Lemuria,323
-	2,Cyclopean,665
+	2,Avalon,665
 	3,Babylon,60
 	4,Atlantis,33
 	5,Montreal,4
 	...
 
-Note that edge-list and node-list can be used at the same time.
-
-
+Node-lists allow users to specify more information about the nodes. Therefore, they are usually accompanied with an edge-list. When using both at the same time, user should make sure that the unique indentifiers match between the two files.
 
 -------------------
 Output file options
 -------------------
 
-Use ``-o`` or ``--ofile`` to indicate the output file name (extension can be ommitted). Add ``-g`` before the option to output in ``.gexf`` format, otherwise hermes will output in ``.gpickle`` format.
+Use ``-o`` or ``--ofile`` to indicate the output file name (file extension can be ommitted). Add ``-g`` before the option to output in GEXF format, otherwise hermes will output a ``.gpickle`` file.
 
-If no output file name is inputted, hermes will output to ``out.gexf`` (in ``.gexf`` format) by defaut.
+If no output file name is inputted, hermes will output to ``out.gexf`` (in GEXF format) by defaut.
 
 -----------------
 Command arguments

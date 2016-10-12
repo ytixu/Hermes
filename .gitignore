@@ -2,3 +2,4 @@ build/*
 hermes.egg-info/*
 dist/*
 out.*
+test/data/*
