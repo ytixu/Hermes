@@ -1,6 +1,6 @@
 # Hermes 0.1
 
-Hermes is a command-line tool for network science.It is based on `NetworkX <https://networkx.github.io/>`_ and `python-louvain <http://perso.crans.org/aynaud/communities/>`_.
+Hermes is a command-line tool for network science.It is based on [NetworkX](https://networkx.github.io/) and [python-louvain](http://perso.crans.org/aynaud/communities/).
 
 Key features:
 * Construct network from CSV files
@@ -12,11 +12,11 @@ Key features:
 
 Clone this github repository or download the source.
 
-Go to the directory ``/Hermes`` and run::
+Go to the directory ``/Hermes`` and run
 
 	make install
 
-or::
+or
 
 	sudo make install
 
