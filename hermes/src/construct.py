@@ -11,17 +11,20 @@ def _buildFromNodeList(file_name, setting, G):
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting('node_attributes')).intersection(lowered_keys))
+				intersect_keys = list(set(setting('node_attributes').split(',')).intersection(lowered_keys))
 				attr_indices = {lowered_keys.index(x): x for x in intersect_keys}
 				id_index = lowered_keys.index(setting('id'))
 
-				# if id_index < 0:
-					# throw exception
+				if id_index < 0:
+					raise Exception('No column "%s" found in file %s.' % (setting('id'), file_name))
 				continue
 
 			G.add_node(row[id_index])
 			for index, attr in attr_indices.iteritems():
-				G.node[row[id_index]][attr] = row[index]
+				if attr in setting('float_column'):
+					G.node[row[id_index]][attr] = float(row[index])
+				else:
+					G.node[row[id_index]][attr] = row[index]
 
 	return G
 
@@ -36,20 +39,24 @@ def _buildFromEdgeList(file_name, setting, G):
 		for i, row in enumerate(spamreader):
 			if i == 0:
 				lowered_keys = map(lambda x: x.lower(), row)
-				intersect_keys = list(set(setting('edge_attributes')).intersection(lowered_keys))
+				intersect_keys = list(set(setting('edge_attributes').split(',')).intersection(lowered_keys))
 				attr_indices = {lowered_keys.index(x): x for x in intersect_keys}
 				source_index = lowered_keys.index(setting('source'))
-				source_index = lowered_keys.index(setting('target'))
+				target_index = lowered_keys.index(setting('target'))
 
-				# if source_index < 0:
-				# 	# throw exception
-				# if target_index < 0:
-					# throw exception
+				if source_index < 0:
+					raise Exception('No column "%s" found in file %s.' % (setting('source'), file_name))
+				if target_index < 0:
+					raise Exception('No column "%s" found in file %s.' % (setting('target'), file_name))
+
 				continue
 
 			G.add_edge(row[source_index], row[target_index])
 			for index, attr in attr_indices.iteritems():
-				G[source_index][target_index][attr] = row[index]
+				if attr in setting('float_column'):
+					G[row[source_index]][row[target_index]][attr] = float(row[index])
+				else:
+					G[row[source_index]][row[target_index]][attr] = row[index]
 
 	return G
 
