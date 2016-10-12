@@ -1,7 +1,9 @@
 build/*
 hermes.egg-info/*
 dist/*
-out.*
+*.gexf
+*.gpickle
+*.csv
 test/data/*
 hermes/src/*.pyc
 hermes/*.pyc

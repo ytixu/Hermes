@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hermes 0.1 documentation" href="index.html" />
-    <link rel="prev" title="Command Line Interface" href="command_line_interface.html" /> 
+    <link rel="prev" title="Command-Line Interface" href="command_line_interface.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="command_line_interface.html" title="Command Line Interface"
+          <a href="command_line_interface.html" title="Command-Line Interface"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -53,6 +53,7 @@ delimiter = ,
 quotechar = &quot;
 edge_attributes = label,weight
 node_attributes = label,weight
+float_column = weight
 source = source
 target = target
 id = id
@@ -81,16 +82,17 @@ weight = weight
 </div>
 <div class="section" id="constructor">
 <h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="docutils literal"><span class="pre">Constructor</span></tt> section determines the configuration of the input <tt class="docutils literal"><span class="pre">.csv</span></tt> files.</p>
+<p>The <tt class="docutils literal"><span class="pre">Constructor</span></tt> section determines the formatting of the input CSV files.</p>
 <ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">delimiter</span></tt> and <tt class="docutils literal"><span class="pre">quotechar</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">delimiter</span></tt> and <tt class="docutils literal"><span class="pre">quotechar</span></tt> to specify the <a class="reference external" href="https://docs.python.org/2/library/csv.html#dialects-and-formatting-parameters">dialects</a>.</li>
 <li><tt class="docutils literal"><span class="pre">source</span></tt>, <tt class="docutils literal"><span class="pre">target</span></tt> and <tt class="docutils literal"><span class="pre">edge_attributes</span></tt> dictates the header of the edge-list. You can append new edge attributes to <tt class="docutils literal"><span class="pre">edge_attributes</span></tt>.</li>
 <li><tt class="docutils literal"><span class="pre">id</span></tt> and <tt class="docutils literal"><span class="pre">node_attributes</span></tt> dictates the header of the node-list. You can append new node attributes to <tt class="docutils literal"><span class="pre">node_attributes</span></tt>.</li>
+<li>Any column that need to be considered to contain float values should be listed in <tt class="docutils literal"><span class="pre">float_column</span></tt>.</li>
 </ol>
 </div>
 <div class="section" id="centrality-parameters">
 <h2>Centrality parameters<a class="headerlink" href="#centrality-parameters" title="Permalink to this headline">¶</a></h2>
-<p>The configuration related to centrality are based on the input parameters to the methods <tt class="docutils literal"><span class="pre">closeness_centrality</span></tt>, <tt class="docutils literal"><span class="pre">betweenness_centrality</span></tt> and <tt class="docutils literal"><span class="pre">eigenvector_centrality</span></tt> in NetworkX. Please refer NetworkX&#8217;s documentation for more details.</p>
+<p>The configuration related to centrality are based on the input parameters to the methods <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.closeness_centrality.html">closeness_centrality</a>, <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.betweenness_centrality.html">betweenness_centrality</a> and <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.centrality.eigenvector_centrality.html">eigenvector_centrality</a> in NetworkX. Please refer NetworkX&#8217;s documentation for more details.</p>
 </div>
 </div>
 
@@ -111,7 +113,7 @@ weight = weight
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="command_line_interface.html"
-                        title="previous chapter">Command Line Interface</a></p>
+                        title="previous chapter">Command-Line Interface</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/custom_configurations.txt"
@@ -141,7 +143,7 @@ weight = weight
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="command_line_interface.html" title="Command Line Interface"
+          <a href="command_line_interface.html" title="Command-Line Interface"
              >previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>

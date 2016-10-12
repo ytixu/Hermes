@@ -9,6 +9,7 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 	quotechar = "
 	edge_attributes = label,weight
 	node_attributes = label,weight
+	float_column = weight
 	source = source
 	target = target
 	id = id
@@ -38,14 +39,15 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 Constructor
 -----------
 
-The ``Constructor`` section determines the configuration of the input ``.csv`` files.
+The ``Constructor`` section determines the formatting of the input CSV files.
 
-1. ``delimiter`` and ``quotechar``
+1. ``delimiter`` and ``quotechar`` to specify the `dialects <https://docs.python.org/2/library/csv.html#dialects-and-formatting-parameters>`_.
 2. ``source``, ``target`` and ``edge_attributes`` dictates the header of the edge-list. You can append new edge attributes to ``edge_attributes``.
 3. ``id`` and ``node_attributes`` dictates the header of the node-list. You can append new node attributes to ``node_attributes``.
+4. Any column that need to be considered to contain float values should be listed in ``float_column``.
 
 ---------------------
 Centrality parameters
 ---------------------
 
-The configuration related to centrality are based on the input parameters to the methods ``closeness_centrality``, ``betweenness_centrality`` and ``eigenvector_centrality`` in NetworkX. Please refer NetworkX's documentation for more details.
+The configuration related to centrality are based on the input parameters to the methods `closeness_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.closeness_centrality.html>`_, `betweenness_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.betweenness_centrality.html>`_ and `eigenvector_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.centrality.eigenvector_centrality.html>`_ in NetworkX. Please refer NetworkX's documentation for more details.
