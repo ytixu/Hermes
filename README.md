@@ -24,3 +24,6 @@ depending on permission settings on your computer.
 
 ## Documentation
 
+Please refer to the online documentation available here:
+
+https://ytixu.github.io/Hermes/docs/_build/html/index.html
