@@ -8,7 +8,7 @@ Key features:
 * Preform community detection using Louvain method
 * Output to GEXF format
 
-![Example graph from test visualized with Gephi](https://ytixu.github.io/Hermes/docs/example-graph.png)
+![Example graph from test visualized with Gephi](https://ytixu.github.io/Hermes/docs/example-graph.png =111x111)
 
 ## Quick start
 
