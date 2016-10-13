@@ -28,7 +28,7 @@ For ``.csv`` input file, two formats are accepted.
 
 Edge-lists must have a header that includes ``source`` and ``target``, indicating the column for the unique indentifiers of the source and target nodes. ``label`` and ``weight`` can also be added as edge attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
-Use ``-e`` or ``--edge-list`` to input file of this format.
+Use ``-e`` or ``--edge-list`` to input file of this format. If no file is provided, Hermes will by default use ``edge-list.csv``.
 
 Use ``-d`` or ``--directed`` to indicate that the graph is directed.
 
@@ -48,7 +48,8 @@ Example::
 
 Note-lists must have a header that includes ``id``, indicating the column for the unique indentifier of the node. ``label`` and ``weight`` can also be added as node attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
-Use ``-n`` or ``--node-list`` to input file of this format.
+Use ``-n`` or ``--node-list`` to input file of this format. If no file is provided, Hermes will by default use ``node-list.csv``.
+
 
 Example::
 
@@ -92,9 +93,12 @@ You can choose which analysis for hermes to run.
 
 ``modularity``: preform community detection
 
-If no command is inputted as an argument, hermes will run all the analysis.
+``no-analysis``: run no analysis
+
+If no command is inputted as an argument, hermes will run the analysis for ``centality`` and ``modularity``. For customizing this behavior, refer to `Customize Hermes > Default command-line arguments <./custom_configurations.html#default-command-line-arguments>`_.
 
 All centrality measures are computed using NetworkX. Modularity is computed using python-louvain.
+
 
 --------
 Examples
