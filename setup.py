@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
 	name='hermes',
 	version='0.1',
-	data_file = [('hermes', ['*.cfg'])],
+	package_data = {'hermes' : ['*.cfg'] },
 	description='',
 	author='Yi Tian Xu',
 	author_email='yi.t.xu@mail.mcgill.ca',

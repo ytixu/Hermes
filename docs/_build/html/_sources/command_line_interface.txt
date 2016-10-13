@@ -69,7 +69,7 @@ Output file options
 
 Use ``-o`` or ``--ofile`` to indicate the output file name (file extension can be ommitted). Add ``-g`` before the option to output in GEXF format, otherwise hermes will output a ``.gpickle`` file.
 
-If no output file name is inputted, hermes will output to `'out.gexf`` (in GEXF format) by defaut.
+If no output file name is inputted, hermes will output to ``out.gexf`` (in GEXF format) by defaut.
 
 -----------------
 Command arguments
@@ -93,9 +93,12 @@ You can choose which analysis for hermes to run.
 
 ``modularity``: preform community detection
 
-If no command is inputted as an argument, hermes will run all the analysis.
+``no-analysis``: run no analysis
+
+If no command is inputted as an argument, hermes will run the analysis for ``centality`` and ``modularity``. For customizing this behavior, refer to `Customize Hermes > Default command-line arguments <./custom_configurations.html#default-command-line-arguments>`_.
 
 All centrality measures are computed using NetworkX. Modularity is computed using python-louvain.
+
 
 --------
 Examples

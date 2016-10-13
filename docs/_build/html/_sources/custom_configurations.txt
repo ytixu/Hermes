@@ -36,6 +36,9 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 	weight = weight
 
 	[Default]
+	node-list = node-list.csv
+	edge-list = edge-list.csv
+	analysis = centrality,modularity
 	argv = -n node-list.csv -e edge-list.csv
 
 -----------
@@ -59,12 +62,14 @@ The configuration related to centrality are based on the input parameters to the
 Default command-line arguments
 ------------------------------
 
-The default command when you run::
+In the ``Default`` section, ``edge-list`` and ``node-list`` dictates the default edge-list and node-list input files.
+
+``analysis`` dictates the defeault analysis that Hermes will preform.
+
+``argv`` detrmines the default behavior of Hermes. That is, when ``argv = -n node-list.csv -e edge-list.csv``, running::
 
 	hermes
 
-will be equivalent to
+will be equivalent to::
 
 	hermes -n node-list.csv -e edge-list.csv
-
-You can change that behanvior in the ``Default`` section of the configuration file.

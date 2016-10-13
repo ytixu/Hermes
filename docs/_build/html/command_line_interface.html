@@ -102,7 +102,7 @@
 <div class="section" id="output-file-options">
 <h2>Output file options<a class="headerlink" href="#output-file-options" title="Permalink to this headline">¶</a></h2>
 <p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (file extension can be ommitted). Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to output in GEXF format, otherwise hermes will output a <tt class="docutils literal"><span class="pre">.gpickle</span></tt> file.</p>
-<p>If no output file name is inputted, hermes will output to <cite>&#8216;out.gexf`</cite> (in GEXF format) by defaut.</p>
+<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out.gexf</span></tt> (in GEXF format) by defaut.</p>
 </div>
 <div class="section" id="command-arguments">
 <h2>Command arguments<a class="headerlink" href="#command-arguments" title="Permalink to this headline">¶</a></h2>
@@ -115,7 +115,8 @@
 <p><tt class="docutils literal"><span class="pre">eigenvector-centrality</span></tt>: compute eigenvector centrality</p>
 <p><tt class="docutils literal"><span class="pre">centrality</span></tt>: compute all centrality values (depending on whether the graph is directed or not)</p>
 <p><tt class="docutils literal"><span class="pre">modularity</span></tt>: preform community detection</p>
-<p>If no command is inputted as an argument, hermes will run all the analysis.</p>
+<p><tt class="docutils literal"><span class="pre">no-analysis</span></tt>: run no analysis</p>
+<p>If no command is inputted as an argument, hermes will run the analysis for <tt class="docutils literal"><span class="pre">centality</span></tt> and <tt class="docutils literal"><span class="pre">modularity</span></tt>. For customizing this behavior, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
 <p>All centrality measures are computed using NetworkX. Modularity is computed using python-louvain.</p>
 </div>
 <div class="section" id="examples">

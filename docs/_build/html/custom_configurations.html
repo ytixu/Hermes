@@ -80,6 +80,9 @@ nstart =
 weight = weight
 
 [Default]
+node-list = node-list.csv
+edge-list = edge-list.csv
+analysis = centrality,modularity
 argv = -n node-list.csv -e edge-list.csv
 </pre></div>
 </div>
@@ -99,14 +102,16 @@ argv = -n node-list.csv -e edge-list.csv
 </div>
 <div class="section" id="default-command-line-arguments">
 <h2>Default command-line arguments<a class="headerlink" href="#default-command-line-arguments" title="Permalink to this headline">¶</a></h2>
-<p>The default command when you run:</p>
+<p>In the <tt class="docutils literal"><span class="pre">Default</span></tt> section, <tt class="docutils literal"><span class="pre">edge-list</span></tt> and <tt class="docutils literal"><span class="pre">node-list</span></tt> dictates the default edge-list and node-list input files.</p>
+<p><tt class="docutils literal"><span class="pre">analysis</span></tt> dictates the defeault analysis that Hermes will preform.</p>
+<p><tt class="docutils literal"><span class="pre">argv</span></tt> detrmines the default behavior of Hermes. That is, when <tt class="docutils literal"><span class="pre">argv</span> <span class="pre">=</span> <span class="pre">-n</span> <span class="pre">node-list.csv</span> <span class="pre">-e</span> <span class="pre">edge-list.csv</span></tt>, running:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">hermes</span>
 </pre></div>
 </div>
-<p>will be equivalent to</p>
-<blockquote>
-<div>hermes -n node-list.csv -e edge-list.csv</div></blockquote>
-<p>You can change that behanvior in the <tt class="docutils literal"><span class="pre">Default</span></tt> section of the configuration file.</p>
+<p>will be equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre>hermes -n node-list.csv -e edge-list.csv
+</pre></div>
+</div>
 </div>
 </div>
 

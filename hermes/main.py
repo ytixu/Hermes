@@ -14,20 +14,20 @@ def _getConfig():
    config.read(op.join(packagedir,'config.cfg'))
    return config
 
-def _formatUsage():
+def _formatUsage(setting):
    return '''Usage:
-   hermes -n <node-list-file> -e <edge-list-file> -d -g -i <input-graph-object-file> -g -o <output-file> <command> <command> <command> ...
+   hermes -n <node-list-file> -e <edge-list-file> -d -g -i <input-graph-object-file> -g -o <output-file> <analysis> <analysis> <analysis> ...
 
-   -n, --node-list\tinput node list file name (csv)
-   -e, --edge-list\tinput edge list file name (csv)
+   -n, --node-list\tinput node list file name (CSV) (default = %s)
+   -e, --edge-list\tinput edge list file name (CSV) (default = %s)
    -d, --directed\tconstuct directed graph
-   -i, --ifile\t\tinput object file name (for pickle or Gephi format)
-   -o, --ofile\t\toutput file name (for pickle or Gephi format) (default = out.gefx)
-   -g, --gephi\t\tinput/output in Gephi format
+   -i, --ifile\t\tinput object file name (for gpickle or GEXF)
+   -o, --ofile\t\toutput file name (for gpickle or GEXF) (default = out.gefx)
+   -g, --gexf\t\tinput/output in GEXF
 
 If no output file is inputted, hermes will output to out.gexf.
 
-Commands:
+Analysis:
    degree-centrality\t\tcompute degree centrality (default to in-degree if the graph is directed)
    in-degree-centrality\t\tcompute in-degree centrality
    out-degree-centrality\tcompute out-degree centrality
@@ -36,12 +36,16 @@ Commands:
    eigenvector-centrality\tcompute eigenvector centrality
    centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
    modularity\t\t\tpreform community detection
-   no-command\t\tdo not preform any of the commands
+   no-analysis\t\t\tdo not preform any of the analysis
 
-If no command is inputted, hermes will compute all of the above.
+default analysis = %s
 
 Use -h or --help to show usage information.
-   '''
+   ''' % (
+      setting.get('Default', 'node-list'),
+      setting.get('Default', 'edge-list'),
+      ', '.join(setting.get('Default', 'analysis').split(','))
+   )
 
 def _getMethodName(name):
    return 'get'+ ''.join(map(lambda x: x.capitalize(), name.split('-')))
@@ -58,9 +62,9 @@ def _validateFile(file_name):
    else:
       _formatErrorAndExit('File %s not found.' % (file_name))
 
-def main(argv):
+def main(argv, setting):
    try:
-      opts, args = getopt.getopt(argv[1:],'n:e:i:o:gphd',['node-list=','edge-list=','ifile=','ofile=','gephi','help', 'directed'])
+      opts, args = getopt.getopt(argv[1:],'n:e:i:o:gphd',['node-list=','edge-list=','ifile=','ofile=','gexf','help', 'directed'])
    except getopt.GetoptError:
       _formatErrorAndExit('Invalid input options or arguments.')
 
@@ -69,16 +73,16 @@ def main(argv):
 
    gephi = False
    directed = False
-   node_list = None
-   edge_list = None
+   node_list = setting.get('Default', 'node-list')
+   edge_list = setting.get('Default', 'edge-list')
    input_file = None
    output_file = ('out', True)
 
    for opt, arg in opts:
       if opt in ('-h', '--help'):
-         print _formatUsage()
+         print _formatUsage(setting)
          sys.exit(2)
-      if opt in ('-g', '--gephi'):
+      if opt in ('-g', '--gexf'):
          gephi = True
       elif opt in ('-d', '--directed'):
          directed = True
@@ -97,7 +101,6 @@ def main(argv):
          gephi = False
 
    G = None
-   setting = _getConfig()
 
    if input_file:
       print 'Loading graph %s' % input_file[0]
@@ -113,10 +116,10 @@ def main(argv):
 
 
    if not args:
-      args = ['centrality', 'modularity']
+      args = setting.get('Default','analysis').split(',')
 
    for command in args:
-      if command == 'no-command':
+      if command == 'no-analysis':
          break
       print 'Processing command: %s' % (command)
       if command == 'modularity':
@@ -142,5 +145,9 @@ def main(argv):
 
 
 if __name__ == "__main__":
-   main(sys.argv)
+   setting = _getConfig()
+   if not len(sys.argv) > 1:
+      main(sys.argv + setting.get('Default', 'argv').split(' '), setting)
+   else:
+      main(sys.argv, setting)
 
