@@ -78,6 +78,9 @@ max_iter = 100
 tol = 1e-06
 nstart =
 weight = weight
+
+[Default]
+argv = -n node-list.csv -e edge-list.csv
 </pre></div>
 </div>
 <div class="section" id="constructor">
@@ -94,6 +97,17 @@ weight = weight
 <h2>Centrality parameters<a class="headerlink" href="#centrality-parameters" title="Permalink to this headline">¶</a></h2>
 <p>The configuration related to centrality are based on the input parameters to the methods <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.closeness_centrality.html">closeness_centrality</a>, <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.betweenness_centrality.html">betweenness_centrality</a> and <a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.centrality.eigenvector_centrality.html">eigenvector_centrality</a> in NetworkX. Please refer NetworkX&#8217;s documentation for more details.</p>
 </div>
+<div class="section" id="default-command-line-arguments">
+<h2>Default command-line arguments<a class="headerlink" href="#default-command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<p>The default command when you run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">hermes</span>
+</pre></div>
+</div>
+<p>will be equivalent to</p>
+<blockquote>
+<div>hermes -n node-list.csv -e edge-list.csv</div></blockquote>
+<p>You can change that behanvior in the <tt class="docutils literal"><span class="pre">Default</span></tt> section of the configuration file.</p>
+</div>
 </div>
 
 
@@ -107,6 +121,7 @@ weight = weight
 <li><a class="reference internal" href="#">Customize Hermes</a><ul>
 <li><a class="reference internal" href="#constructor">Constructor</a></li>
 <li><a class="reference internal" href="#centrality-parameters">Centrality parameters</a></li>
+<li><a class="reference internal" href="#default-command-line-arguments">Default command-line arguments</a></li>
 </ul>
 </li>
 </ul>

@@ -28,7 +28,7 @@ For ``.csv`` input file, two formats are accepted.
 
 Edge-lists must have a header that includes ``source`` and ``target``, indicating the column for the unique indentifiers of the source and target nodes. ``label`` and ``weight`` can also be added as edge attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
-Use ``-e`` or ``--edge-list`` to input file of this format.
+Use ``-e`` or ``--edge-list`` to input file of this format. If no file is provided, Hermes will by default use ``edge-list.csv``.
 
 Use ``-d`` or ``--directed`` to indicate that the graph is directed.
 
@@ -48,7 +48,8 @@ Example::
 
 Note-lists must have a header that includes ``id``, indicating the column for the unique indentifier of the node. ``label`` and ``weight`` can also be added as node attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
-Use ``-n`` or ``--node-list`` to input file of this format.
+Use ``-n`` or ``--node-list`` to input file of this format. If no file is provided, Hermes will by default use ``node-list.csv``.
+
 
 Example::
 
@@ -68,7 +69,7 @@ Output file options
 
 Use ``-o`` or ``--ofile`` to indicate the output file name (file extension can be ommitted). Add ``-g`` before the option to output in GEXF format, otherwise hermes will output a ``.gpickle`` file.
 
-If no output file name is inputted, hermes will output to ``out.gexf`` (in GEXF format) by defaut.
+If no output file name is inputted, hermes will output to `'out.gexf`` (in GEXF format) by defaut.
 
 -----------------
 Command arguments

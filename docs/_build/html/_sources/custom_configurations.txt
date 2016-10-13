@@ -35,6 +35,9 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 	nstart =
 	weight = weight
 
+	[Default]
+	argv = -n node-list.csv -e edge-list.csv
+
 -----------
 Constructor
 -----------
@@ -51,3 +54,17 @@ Centrality parameters
 ---------------------
 
 The configuration related to centrality are based on the input parameters to the methods `closeness_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.closeness_centrality.html>`_, `betweenness_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.bipartite.centrality.betweenness_centrality.html>`_ and `eigenvector_centrality <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.centrality.eigenvector_centrality.html>`_ in NetworkX. Please refer NetworkX's documentation for more details.
+
+------------------------------
+Default command-line arguments
+------------------------------
+
+The default command when you run::
+
+	hermes
+
+will be equivalent to
+
+	hermes -n node-list.csv -e edge-list.csv
+
+You can change that behanvior in the ``Default`` section of the configuration file.
