@@ -2,9 +2,15 @@ import csv
 import networkx as nx
 
 
+###
+# Helper for getting CSV file delimiter from config file
+#
 def _getDelimiter(setting):
 	return setting('delimiter') if setting('delimiter') != 'tab' else '\t'
 
+###
+# Build graph from node-list
+#
 def _buildFromNodeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
 		spamreader = csv.reader(csv_file, delimiter=_getDelimiter(setting),
@@ -31,7 +37,9 @@ def _buildFromNodeList(file_name, setting, G):
 
 	return G
 
-
+###
+# Build graph from edge list
+#
 def _buildFromEdgeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
 		spamreader = csv.reader(csv_file, delimiter=_getDelimiter(setting),
@@ -63,6 +71,10 @@ def _buildFromEdgeList(file_name, setting, G):
 
 	return G
 
+###
+# Build graph from CSV files
+# Called by main.py
+#
 def buildGraph(edge_list, node_list, setting, directed=False):
 	G = None
 	if directed:
@@ -78,17 +90,26 @@ def buildGraph(edge_list, node_list, setting, directed=False):
 
 	return G
 
-
+###
+# Build directed graph from CSV file
+# Called by main.py
+#
 def buildDirectedGraph(edge_list, node_list, setting):
 	return buildGraph(edge_list, node_list, setting, True)
 
 
+###
+# Helper for formatting file name
+#
 def _formatFileName(file_name, ext, delimiter = '.'):
 	try:
 		file_name.index(delimiter + ext)
 	except ValueError:
 		return file_name+delimiter+ext
 
+###
+# Dumping graph to CSV file
+#
 def _dumpCsv(G, file_name, header, generator, setting):
 	file_name = _formatFileName(file_name, 'csv')
 	with open(file_name, 'w') as csv_file:
@@ -100,14 +121,24 @@ def _dumpCsv(G, file_name, header, generator, setting):
 
 	return file_name
 
+###
+# Node list + attribute generator
+#
 def _nodeGen(G):
 	for node, data in G.nodes_iter(data=True):
 		yield [node] + data.values()
 
+###
+# Edge list + attribute generator
+# @TODO: not used right now because only node centrality and node modularity are computed
+#
 def _edgeGen(G):
 	for source, target, data in G.edges_iter(data=True):
 		yield [source, target] + data.values()
 
+###
+# Saving new graph to CSV file
+#
 def dumpToCsv(G, file_name, setting):
 	# Dump node list
 	header = ['ID'] + G.nodes(data=True)[0][1].keys()
@@ -122,6 +153,9 @@ def dumpToCsv(G, file_name, setting):
 	# return (node_file, edges_file)
 	return node_file
 
+###
+# Save new graph to GEXF file
+#
 def dumpToGephi(G, file_name):
 	file_name = _formatFileName(file_name, 'gexf')
 	nx.write_gexf(G, file_name)
