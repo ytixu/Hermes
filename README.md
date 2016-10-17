@@ -29,7 +29,7 @@ Now, you can use the command ``hermes`` on your terminal. Refer to the [online d
 
 ### Testing
 
-To test Hermes, run::
+To test Hermes, run:
 
 	make test_hermes
 
