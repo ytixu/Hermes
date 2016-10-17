@@ -16,24 +16,24 @@ def _getConfig():
 
 def _formatUsage(setting):
 	return '''Usage:
-	hermes [<command>] [-n <node-list-file-name>] [-e <edge-list-file-name>] [-d] [-o <output-file-name>]
+	hermes [convert] [-n <node-list-file-name>] [-e <edge-list-file-name>] [-d] [-o <output-file-name>] [<command>] [<command>] [<command>] ...
 
 	-n, --node-list\tinput node list file name (CSV) (default = %s)
 	-e, --edge-list\tinput edge list file name (CSV) (default = %s)
 	-d, --directed\tconstuct directed graph
-	-o, --ofile\t\toutput file name (CSV or GEXF) (default = out-node.csv out-edge.csv)
+	-o, --ofile\toutput file name (CSV or GEXF) (default = %s-node.csv)
 
-	convert\t\t\tconvert CSV files to GEXF file (default output file = out.gexf)
+	convert\t\tconvert CSV files to GEXF file (default input files = %s %s, output file = %s.gexf)
 
-	degree-centrality\t\tcompute degree centrality (default to in-degree if the graph is directed)
-	in-degree-centrality\t\tcompute in-degree centrality (only works with directed graph)
+Commands:
+	degree-centrality\tcompute degree centrality (default to in-degree if the graph is directed)
+	in-degree-centrality\tcompute in-degree centrality (only works with directed graph)
 	out-degree-centrality\tcompute out-degree centrality (only works with directed graph)
 	closeness-centrality\tcompute closeness centrality
 	betweenness-centrality\tcompute betweenness centrality
 	eigenvector-centrality\tcompute eigenvector centrality
-	centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
-
-	modularity\t\t\tpreform community detection
+	centrality\t\tcompute all centrality values (depending on whether the graph is directed or not)
+	modularity\t\tpreform community detection
 
 default command(s) = %s
 
@@ -41,6 +41,10 @@ Use -h or --help to show usage information.
 	''' % (
 		setting.get('Default', 'node-list'),
 		setting.get('Default', 'edge-list'),
+		setting.get('Default', 'output-file'),
+		setting.get('Default', 'convert-node-list'),
+		setting.get('Default', 'convert-edge-list'),
+		setting.get('Default', 'output-file'),
 		', '.join(setting.get('Default', 'analysis').split(','))
 	)
 
@@ -63,10 +67,10 @@ def _getInputFiles(opts, setting, prefix = ''):
 	directed = False
 	node_list = setting.get('Default', prefix+'node-list')
 	edge_list = setting.get('Default', prefix+'edge-list')
-	output_file = 'out'
+	output_file = setting.get('Default', 'output-file')
 
 	for opt, arg in opts:
-		elif opt in ('-d', '--directed'):
+		if opt in ('-d', '--directed'):
 			directed = True
 		elif opt in ('-n', '--node-list'):
 			_validateFile(arg)
@@ -88,11 +92,11 @@ def _getGraph(edge_list, node_list, directed, constructor_setting):
 
 def convert(argv, setting):
 	try:
-		opts, args = getopt.getopt(argv[1:],'n:e:o:d',['node-list=','edge-list=','ofile=', 'directed'])
+		opts, args = getopt.getopt(argv[2:],'n:e:o:d',['node-list=','edge-list=','ofile=', 'directed'])
 	except getopt.GetoptError:
 		_formatErrorAndExit('Invalid input options or arguments.')
 
-	directed, node_list, edge_list, output_file = _getInputFiles(opts, setting, prefix = 'out-')
+	directed, node_list, edge_list, output_file = _getInputFiles(opts, setting, 'convert-')
 
 	constructor_setting = _get_section_config(setting, 'Constructor')
 	G = _getGraph(edge_list, node_list, directed, constructor_setting)
@@ -121,6 +125,9 @@ def main(argv, setting):
 
 	if not args:
 		args = setting.get('Default','analysis').split(',')
+	else:
+		# remove redundent args
+		args = list(set(args))
 
 	for command in args:
 		print 'Processing analysis: %s' % (command)
@@ -140,15 +147,13 @@ def main(argv, setting):
 
 	if output_file:
 		file_names = construct.dumpToCsv(G, output_file, constructor_setting)
-		print 'Outputting to CSV %s and %s' % file_names
+		print 'Outputting to CSV %s' % (file_names)
 
 if __name__ == "__main__":
 	setting = _getConfig()
 	argv = sys.argv
-	if not len(sys.argv) > 1:
-		argv = sys.argv + setting.get('Default', 'argv').split(' ')
 
-	if argv[1] == 'convert':
+	if len(argv) > 1 and argv[1] == 'convert':
 		convert(argv, setting)
 	else:
 		main(argv, setting)

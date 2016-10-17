@@ -52,8 +52,8 @@
 delimiter = ,
 quotechar = &quot;
 edge_attributes = label,weight
-node_attributes = label,weight
-float_column = weight
+node_attributes = label,weight,closeness_centrality,louvain_community,betweenness_centrality,eigenvector_centrality,degree_centrality
+float_column = weight,closeness_centrality,betweenness_centrality,eigenvector_centrality,degree_centrality
 source = source
 target = target
 id = id
@@ -80,10 +80,12 @@ nstart =
 weight = weight
 
 [Default]
-node-list = node-list.csv
 edge-list = edge-list.csv
+node-list = node-list.csv
+convert-edge-list = edge-list.csv
+convert-node-list = out.csv
+output-file = out
 analysis = centrality,modularity
-argv = -n node-list.csv -e edge-list.csv
 </pre></div>
 </div>
 <div class="section" id="constructor">
@@ -102,16 +104,13 @@ argv = -n node-list.csv -e edge-list.csv
 </div>
 <div class="section" id="default-command-line-arguments">
 <h2>Default command-line arguments<a class="headerlink" href="#default-command-line-arguments" title="Permalink to this headline">¶</a></h2>
-<p>In the <tt class="docutils literal"><span class="pre">Default</span></tt> section, <tt class="docutils literal"><span class="pre">edge-list</span></tt> and <tt class="docutils literal"><span class="pre">node-list</span></tt> dictates the default edge-list and node-list input files.</p>
-<p><tt class="docutils literal"><span class="pre">analysis</span></tt> dictates the defeault analysis that Hermes will preform.</p>
-<p><tt class="docutils literal"><span class="pre">argv</span></tt> detrmines the default behavior of Hermes. That is, when <tt class="docutils literal"><span class="pre">argv</span> <span class="pre">=</span> <span class="pre">-n</span> <span class="pre">node-list.csv</span> <span class="pre">-e</span> <span class="pre">edge-list.csv</span></tt>, running:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hermes</span>
-</pre></div>
-</div>
-<p>will be equivalent to:</p>
-<div class="highlight-python"><div class="highlight"><pre>hermes -n node-list.csv -e edge-list.csv
-</pre></div>
-</div>
+<p>In the <tt class="docutils literal"><span class="pre">Default</span></tt> section,</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">edge-list</span></tt> and <tt class="docutils literal"><span class="pre">node-list</span></tt> dictates the default edge-list and node-list input files for centrality or modularity analysis.</li>
+<li><tt class="docutils literal"><span class="pre">convert-edge-list</span></tt> and <tt class="docutils literal"><span class="pre">convert-node-list</span></tt> dictates the default edge-list and node-list input files to convert to GEXF format.</li>
+<li><tt class="docutils literal"><span class="pre">output-file</span></tt> dictates the default output file name.</li>
+<li><tt class="docutils literal"><span class="pre">analysis</span></tt> dictates the defeault analysis that Hermes will preform.</li>
+</ol>
 </div>
 </div>
 
