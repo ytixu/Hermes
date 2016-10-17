@@ -21,10 +21,10 @@ def _formatUsage(setting):
 	-n, --node-list\tinput node list file name (CSV) (default = %s)
 	-e, --edge-list\tinput edge list file name (CSV) (default = %s)
 	-d, --directed\tconstuct directed graph
-	-o, --ofile\t\toutput file name (CSV) (default = out)
+	-o, --ofile\t\toutput file name (CSV or GEXF) (default = out-node.csv out-edge.csv)
 
-Commands:
-	convert\t\t\tconvert CSV files to GEXF file (default output file = out)
+	convert\t\t\tconvert CSV files to GEXF file (default output file = out.gexf)
+
 	degree-centrality\t\tcompute degree centrality (default to in-degree if the graph is directed)
 	in-degree-centrality\t\tcompute in-degree centrality (only works with directed graph)
 	out-degree-centrality\tcompute out-degree centrality (only works with directed graph)
@@ -32,9 +32,10 @@ Commands:
 	betweenness-centrality\tcompute betweenness centrality
 	eigenvector-centrality\tcompute eigenvector centrality
 	centrality\t\t\tcompute all centrality values (depending on whether the graph is directed or not)
+
 	modularity\t\t\tpreform community detection
 
-default command = %s
+default command(s) = %s
 
 Use -h or --help to show usage information.
 	''' % (
@@ -58,28 +59,13 @@ def _validateFile(file_name):
 	else:
 		_formatErrorAndExit('File %s not found.' % (file_name))
 
-def main(argv, setting):
-	try:
-		opts, args = getopt.getopt(argv[1:],'n:e:i:o:gphd',['node-list=','edge-list=','ifile=','ofile=','gexf','help', 'directed'])
-	except getopt.GetoptError:
-		_formatErrorAndExit('Invalid input options or arguments.')
-
-	# print opts
-	# print args
-
-	gephi = False
+def _getInputFiles(opts, setting, prefix = ''):
 	directed = False
-	node_list = setting.get('Default', 'node-list')
-	edge_list = setting.get('Default', 'edge-list')
-	input_file = None
-	output_file = ('out', True)
+	node_list = setting.get('Default', prefix+'node-list')
+	edge_list = setting.get('Default', prefix+'edge-list')
+	output_file = 'out'
 
 	for opt, arg in opts:
-		if opt in ('-h', '--help'):
-			print _formatUsage(setting)
-			sys.exit(2)
-		if opt in ('-g', '--gexf'):
-			gephi = True
 		elif opt in ('-d', '--directed'):
 			directed = True
 		elif opt in ('-n', '--node-list'):
@@ -88,36 +74,56 @@ def main(argv, setting):
 		elif opt in ('-e', '--edge-list'):
 			_validateFile(arg)
 			edge_list = arg
-		elif opt in ('-i', '--ifile'):
-			_validateFile(arg)
-			input_file = (arg, gephi)
-			gephi = False
 		elif opt in ('-o', '--ofile'):
-			output_file = (arg, gephi)
-			gephi = False
+			output_file = arg
 
-	G = None
+	return (directed, node_list, edge_list, output_file)
 
-	if input_file:
-		print 'Loading graph %s' % input_file[0]
-		if input_file[1]:
-			G = construct.loadFromGephi(input_file[0])
-		else:
-			G = construct.loadGraph(input_file[0])
-	elif edge_list or node_list:
+def _getGraph(edge_list, node_list, directed, constructor_setting):
+	if edge_list or node_list:
 		print 'Constructing graph'
-		G = construct.buildGraph(edge_list, node_list, _get_section_config(setting, 'Constructor'), directed)
+		return construct.buildGraph(edge_list, node_list, constructor_setting, directed)
 	else:
 		_formatErrorAndExit('No input file, edge list or node list.')
 
+def convert(argv, setting):
+	try:
+		opts, args = getopt.getopt(argv[1:],'n:e:o:d',['node-list=','edge-list=','ofile=', 'directed'])
+	except getopt.GetoptError:
+		_formatErrorAndExit('Invalid input options or arguments.')
+
+	directed, node_list, edge_list, output_file = _getInputFiles(opts, setting, prefix = 'out-')
+
+	constructor_setting = _get_section_config(setting, 'Constructor')
+	G = _getGraph(edge_list, node_list, directed, constructor_setting)
+
+	file_name = construct.dumpToGephi(G, output_file)
+	print 'Outputting to GEXF %s' % (file_name)
+
+def main(argv, setting):
+	try:
+		opts, args = getopt.getopt(argv[1:],'n:e:o:hd',['node-list=','edge-list=','ofile=','help', 'directed'])
+	except getopt.GetoptError:
+		_formatErrorAndExit('Invalid input options or arguments.')
+
+	# print opts
+	# print args
+
+	for opt, arg in opts:
+		if opt in ('-h', '--help'):
+			print _formatUsage(setting)
+			sys.exit(2)
+
+	directed, node_list, edge_list, output_file = _getInputFiles(opts, setting)
+
+	constructor_setting = _get_section_config(setting, 'Constructor')
+	G = _getGraph(edge_list, node_list, directed, constructor_setting)
 
 	if not args:
 		args = setting.get('Default','analysis').split(',')
 
 	for command in args:
-		if command == 'no-analysis':
-			break
-		print 'Processing command: %s' % (command)
+		print 'Processing analysis: %s' % (command)
 		if command == 'modularity':
 			modularity.louvainModularity(G)
 		elif command == 'centrality':
@@ -133,12 +139,8 @@ def main(argv, setting):
 				_formatErrorAndExit('Invalid command %s.' % (command))
 
 	if output_file:
-		print 'Outputting to %s' % (output_file[0])
-		if output_file[1]:
-			construct.dumpToGephi(G, output_file[0])
-		else:
-			construct.dumpGraph(G, output_file[0])
-
+		file_names = construct.dumpToCsv(G, output_file, constructor_setting)
+		print 'Outputting to CSV %s and %s' % file_names
 
 if __name__ == "__main__":
 	setting = _getConfig()
@@ -147,8 +149,7 @@ if __name__ == "__main__":
 		argv = sys.argv + setting.get('Default', 'argv').split(' ')
 
 	if argv[1] == 'convert':
-		argv.remove('convert')
-		argv.append('no-analysis')
-
-	main(argv, setting)
+		convert(argv, setting)
+	else:
+		main(argv, setting)
 
