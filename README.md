@@ -4,7 +4,7 @@ Hermes is a command-line tool for network science.It is based on [NetworkX](http
 
 Key features:
 * Construct network from CSV files
-* Compute centrality measures (degree, closeness, betweenness and eigenvector)
+* Compute node centrality measures (degree, closeness, betweenness and eigenvector)
 * Preform community detection using Louvain method
 * Output to CSV files
 * Convert CSV to GEXF format.
