@@ -2,9 +2,12 @@ import csv
 import networkx as nx
 
 
+def _getDelimiter(setting):
+	return setting('delimiter') if setting('delimiter') != 'tab' else '\t',
+
 def _buildFromNodeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(csv_file, delimiter=setting('delimiter') if setting('delimiter') != 'tab' else '\t',
+		spamreader = csv.reader(csv_file, delimiter=_getDelimiter(setting)
 											quotechar=setting('quotechar'))
 		attr_indices = {}
 		id_index = -1
@@ -31,7 +34,7 @@ def _buildFromNodeList(file_name, setting, G):
 
 def _buildFromEdgeList(file_name, setting, G):
 	with open(file_name, 'r') as csv_file:
-		spamreader = csv.reader(csv_file, delimiter=setting('delimiter') if setting('delimiter') != 'tab' else '\t',
+		spamreader = csv.reader(csv_file, delimiter=_getDelimiter(setting)
 											quotechar=setting('quotechar'))
 		attr_indices = {}
 		source_index = -1
@@ -80,17 +83,36 @@ def buildDirectedGraph(edge_list, node_list, setting):
 	return buildGraph(edge_list, node_list, setting, True)
 
 
-def _formatFileName(file_name, ext):
+def _formatFileName(file_name, ext, delimiter = '.'):
 	try:
-		file_name.index('.' + ext)
+		file_name.index(delimiter + ext)
 	except ValueError:
-		return file_name+'.'+ext
+		return file_name+delimiter+ext
 
-def dumpGraph(G, file_name):
-	nx.write_gpickle(G, _formatFileName(file_name, 'gpickle'))
+def _dumpCsv(G, file_name, header, generator):
+	with open(_formatFileName(file_name, 'csv'), 'w') as csv_file:
+		spamreader = csv.reader(csv_file, delimiter=_getDelimiter(setting)
+											quotechar=setting('quotechar')):
+		spamwriter.writerow(header)
+		for row in generator:
+			spamwriter.writerow(row)
 
-def loadGraph(file_name):
-	return nx.read_gpickle(file_name)
+def _nodeGen(G):
+	for node, data in G.nodes_iter(data=True):
+		yield [node] + data.values()
+
+def _nodeGen(G):
+	for nodes, data in G.edge_iter(data=True):
+		yield list(nodes) + data.values()
+
+def dumpCsv(G, file_name):
+	# Dump node list
+	header = ['ID'] + G.nodes(data=True)[0][1].keys()
+	_dumpCsv(G, _formatFileName(file_name, 'node', '-'), header, _nodeGen(G))
+
+	# Dump node edges
+	header = ['SOURCE', 'TARGET'] + G.edges(data=True)[0][1].keys()
+	_dumpCsv(G, _formatFileName(file_name, 'edge', '-'), header, _edgeGen(G))
 
 def dumpToGephi(G, file_name):
 	nx.write_gexf(G, _formatFileName(file_name, 'gexf'))
