@@ -8,8 +8,8 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 	delimiter = ,
 	quotechar = "
 	edge_attributes = label,weight
-	node_attributes = label,weight
-	float_column = weight
+	node_attributes = label,weight,closeness_centrality,louvain_community,betweenness_centrality,eigenvector_centrality,degree_centrality
+	float_column = weight,closeness_centrality,betweenness_centrality,eigenvector_centrality,degree_centrality
 	source = source
 	target = target
 	id = id
@@ -36,10 +36,12 @@ You can locate Hermes' configuration file ``/Hermes/hermes/config.cfg``. Once He
 	weight = weight
 
 	[Default]
-	node-list = node-list.csv
 	edge-list = edge-list.csv
+	node-list = node-list.csv
+	convert-edge-list = edge-list.csv
+	convert-node-list = out.csv
+	output-file = out
 	analysis = centrality,modularity
-	argv = -n node-list.csv -e edge-list.csv
 
 -----------
 Constructor
@@ -62,14 +64,12 @@ The configuration related to centrality are based on the input parameters to the
 Default command-line arguments
 ------------------------------
 
-In the ``Default`` section, ``edge-list`` and ``node-list`` dictates the default edge-list and node-list input files.
+In the ``Default`` section,
 
-``analysis`` dictates the defeault analysis that Hermes will preform.
+1. ``edge-list`` and ``node-list`` dictates the default edge-list and node-list input files for centrality or modularity analysis.
+2. ``convert-edge-list`` and ``convert-node-list`` dictates the default edge-list and node-list input files to convert to GEXF format.
+3. ``output-file`` dictates the default output file name.
+4. ``analysis`` dictates the defeault analysis that Hermes will preform.
 
-``argv`` detrmines the default behavior of Hermes. That is, when ``argv = -n node-list.csv -e edge-list.csv``, running::
 
-	hermes
 
-will be equivalent to::
-
-	hermes -n node-list.csv -e edge-list.csv

@@ -1,4 +1,4 @@
-# Hermes 0.1
+# Hermes 0.2
 
 Hermes is a command-line tool for network science.It is based on [NetworkX](https://networkx.github.io/) and [python-louvain](http://perso.crans.org/aynaud/communities/).
 
@@ -6,7 +6,8 @@ Key features:
 * Construct network from CSV files
 * Compute centrality measures (degree, closeness, betweenness and eigenvector)
 * Preform community detection using Louvain method
-* Output to GEXF format
+* Output to CSV files
+* Convert CSV to GEXF format.
 
 ## Quick start
 
@@ -28,11 +29,15 @@ Now, you can use the command ``hermes`` on your terminal. Refer to the [online d
 
 ### Testing
 
-To test Hermes, run
+To test Hermes, run::
 
 	make test_hermes
 
-This will call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``. Then, the command ``hermes`` will be triggered to create the output, ``out.gexf``, with all centrality measures and detected communities as node attributes.
+This will do the following things:
+
+1) Call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``.
+2) Trigger command ``hermes`` to create the output, ``/Hermes/out.csv``, with all centrality measures and detected communities as node attributes.
+3) Convert ``/Hermes/out.csv`` and ``/Hermes/test/data/edge-list.csv`` to ``out.gexf``.
 
 ## Documentation
 

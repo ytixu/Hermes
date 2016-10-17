@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hermes 0.1 documentation" href="index.html" />
-    <link rel="next" title="Command Line Interface" href="command_line_interface.html" />
-    <link rel="prev" title="Hermes 0.1" href="index.html" /> 
+    <link rel="next" title="Command-Line Interface" href="command_line_interface.html" />
+    <link rel="prev" title="Hermes 0.2" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="command_line_interface.html" title="Command Line Interface"
+          <a href="command_line_interface.html" title="Command-Line Interface"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Hermes 0.1"
+          <a href="index.html" title="Hermes 0.2"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -71,7 +71,12 @@
 <div class="highlight-python"><div class="highlight"><pre>make test_hermes
 </pre></div>
 </div>
-<p>This will call <tt class="docutils literal"><span class="pre">/Hermes/test/test.py</span></tt> to create a random edge-list and a node-list under the directory <tt class="docutils literal"><span class="pre">/Hermes/test/data</span></tt>. Then, the command <tt class="docutils literal"><span class="pre">hermes</span></tt> will be triggered to create the output, <tt class="docutils literal"><span class="pre">out.gexf</span></tt>, with all centrality measures and detected communities as node attributes.</p>
+<p>This will do the following things:</p>
+<ol class="arabic simple">
+<li>Call <tt class="docutils literal"><span class="pre">/Hermes/test/test.py</span></tt> to create a random edge-list and a node-list under the directory <tt class="docutils literal"><span class="pre">/Hermes/test/data</span></tt>.</li>
+<li>Trigger command <tt class="docutils literal"><span class="pre">hermes</span></tt> to create the output, <tt class="docutils literal"><span class="pre">/Hermes/out.csv</span></tt>, with all centrality measures and detected communities as node attributes.</li>
+<li>Convert <tt class="docutils literal"><span class="pre">/Hermes/out.csv</span></tt> and <tt class="docutils literal"><span class="pre">/Hermes/test/data/edge-list.csv</span></tt> to <tt class="docutils literal"><span class="pre">out.gexf</span></tt>.</li>
+</ol>
 </div>
 </div>
 
@@ -91,10 +96,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Hermes 0.1</a></p>
+                        title="previous chapter">Hermes 0.2</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="command_line_interface.html"
-                        title="next chapter">Command Line Interface</a></p>
+                        title="next chapter">Command-Line Interface</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/installation.txt"
@@ -124,10 +129,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="command_line_interface.html" title="Command Line Interface"
+          <a href="command_line_interface.html" title="Command-Line Interface"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Hermes 0.1"
+          <a href="index.html" title="Hermes 0.2"
              >previous</a> |</li>
         <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
       </ul>

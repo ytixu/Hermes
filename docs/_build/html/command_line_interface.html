@@ -51,24 +51,32 @@
             
   <div class="section" id="command-line-interface">
 <h1>Command-Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
-<p><tt class="docutils literal"><span class="pre">hermes</span></tt> works as the follwing:</p>
-<ol class="arabic simple">
-<li>Build graph from <tt class="docutils literal"><span class="pre">.csv</span></tt>, <tt class="docutils literal"><span class="pre">.gexf</span></tt> or <tt class="docutils literal"><span class="pre">.gpickled</span></tt> file</li>
-<li>Run centrality measure statistics and/or community detection</li>
-<li>Output graph to <tt class="docutils literal"><span class="pre">.gpickle</span></tt> or <tt class="docutils literal"><span class="pre">.gexf</span></tt> file</li>
-</ol>
-<p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>hermes -n &lt;node-list-file&gt; -e &lt;edge-list-file&gt; -d -g -i &lt;input-graph-object-file&gt; -g -o &lt;output-file&gt; &lt;command&gt; &lt;command&gt; &lt;command&gt; ...
+<p><tt class="docutils literal"><span class="pre">hermes</span></tt> can be called for two usages.</p>
+<ol class="arabic">
+<li><p class="first">Compute centrality measure statistics and/or community detection on input graph and output to CSV files.</p>
+<blockquote>
+<div><p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>hermes [-n &lt;node-list-file&gt;] [-e &lt;edge-list-file&gt;] [-d] [-o &lt;output-file&gt;] [&lt;command&gt;] [&lt;command&gt;] [&lt;command&gt;] ...
 </pre></div>
 </div>
+</div></blockquote>
+</li>
+<li><p class="first">Convert graph stored in CSV files to a GEXF file.</p>
+<blockquote>
+<div><p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>hermes convert [-n &lt;node-list-file&gt;] [-e &lt;edge-list-file&gt;] [-d] [-o &lt;output-file&gt;]
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
 <p>Run <tt class="docutils literal"><span class="pre">hermes</span> <span class="pre">-h</span></tt> to display usage information on the command line.</p>
 <div class="section" id="input-file-options-and-requirements">
 <h2>Input file options and requirements<a class="headerlink" href="#input-file-options-and-requirements" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">.gpickled</span></tt> and <tt class="docutils literal"><span class="pre">.gexf</span></tt> files should be usually generated from NetworkX&#8217;s <a class="reference external" href="http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gpickle.write_gpickle.html">write_gpickle</a> and <a class="reference external" href="http://networkx.readthedocs.io/en/networkx-1.11/reference/generated/networkx.readwrite.gexf.write_gexf.html">write_gexf</a> methods respectively. Use the option <tt class="docutils literal"><span class="pre">-i</span></tt> or <tt class="docutils literal"><span class="pre">--ifile</span></tt> to input <tt class="docutils literal"><span class="pre">.gpickled</span></tt> file. Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to indicate that the file has extension <tt class="docutils literal"><span class="pre">.gexf</span></tt>.</p>
-<p>For <tt class="docutils literal"><span class="pre">.csv</span></tt> input file, two formats are accepted.</p>
 <div class="section" id="the-edge-list-format">
 <h3>1. The edge-list format<a class="headerlink" href="#the-edge-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Edge-lists must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>, indicating the column for the unique indentifiers of the source and target nodes. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as edge attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
+<p>Edge-lists must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>, indicating the columns for the unique indentifiers of the source and target nodes.</p>
+<p><tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as edge attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-e</span></tt> or <tt class="docutils literal"><span class="pre">--edge-list</span></tt> to input file of this format. If no file is provided, Hermes will by default use <tt class="docutils literal"><span class="pre">edge-list.csv</span></tt>.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-d</span></tt> or <tt class="docutils literal"><span class="pre">--directed</span></tt> to indicate that the graph is directed.</p>
 <p>Example:</p>
@@ -84,7 +92,8 @@
 </div>
 <div class="section" id="the-node-list-format">
 <h3>2. The node-list format<a class="headerlink" href="#the-node-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Note-lists must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>, indicating the column for the unique indentifier of the node. <tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as node attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
+<p>Note-lists must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>, indicating the column for the unique indentifier of the node.</p>
+<p><tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as node attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-n</span></tt> or <tt class="docutils literal"><span class="pre">--node-list</span></tt> to input file of this format. If no file is provided, Hermes will by default use <tt class="docutils literal"><span class="pre">node-list.csv</span></tt>.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">id</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">weigth</span>
@@ -96,13 +105,13 @@
 <span class="o">...</span>
 </pre></div>
 </div>
-<p>Node-lists allow users to specify more information about the nodes. Therefore, they are usually accompanied with an edge-list. When using both at the same time, user should make sure that the unique indentifiers match between the two files.</p>
+<p>Node-lists allow users to specify more information about the nodes. User may choose to only input an edge-list if no such information is needed.</p>
 </div>
 </div>
 <div class="section" id="output-file-options">
 <h2>Output file options<a class="headerlink" href="#output-file-options" title="Permalink to this headline">¶</a></h2>
-<p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (file extension can be ommitted). Add <tt class="docutils literal"><span class="pre">-g</span></tt> before the option to output in GEXF format, otherwise hermes will output a <tt class="docutils literal"><span class="pre">.gpickle</span></tt> file.</p>
-<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out.gexf</span></tt> (in GEXF format) by defaut.</p>
+<p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (file extension can be ommitted).</p>
+<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out-node-list.csv</span></tt> or <tt class="docutils literal"><span class="pre">out.gexf</span></tt> by default.</p>
 </div>
 <div class="section" id="command-arguments">
 <h2>Command arguments<a class="headerlink" href="#command-arguments" title="Permalink to this headline">¶</a></h2>
@@ -115,18 +124,8 @@
 <p><tt class="docutils literal"><span class="pre">eigenvector-centrality</span></tt>: compute eigenvector centrality</p>
 <p><tt class="docutils literal"><span class="pre">centrality</span></tt>: compute all centrality values (depending on whether the graph is directed or not)</p>
 <p><tt class="docutils literal"><span class="pre">modularity</span></tt>: preform community detection</p>
-<p><tt class="docutils literal"><span class="pre">no-analysis</span></tt>: run no analysis</p>
 <p>If no command is inputted as an argument, hermes will run the analysis for <tt class="docutils literal"><span class="pre">centality</span></tt> and <tt class="docutils literal"><span class="pre">modularity</span></tt>. For customizing this behavior, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
 <p>All centrality measures are computed using NetworkX. Modularity is computed using python-louvain.</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">hermes</span> <span class="pre">-e</span> <span class="pre">test/data/random-edge-list.csv</span> <span class="pre">-n</span> <span class="pre">test/data/random-node-list.csv</span></tt></p>
-<p>This will compute all centrality measure statistics and run community detection on the graph constructed with edge-list <tt class="docutils literal"><span class="pre">test/data/random-edge-list.csv</span></tt> and node-list <tt class="docutils literal"><span class="pre">test/data/random-node-list.csv</span></tt>. The output will be found in file <tt class="docutils literal"><span class="pre">out.gexf</span></tt> under the directory where <tt class="docutils literal"><span class="pre">hermes</span></tt> is called.</p>
-<p><tt class="docutils literal"><span class="pre">hermes</span> <span class="pre">-i</span> <span class="pre">example.gpickle</span> <span class="pre">-g</span> <span class="pre">-o</span> <span class="pre">result</span> <span class="pre">eigenvector-centrality</span> <span class="pre">modularity</span></tt></p>
-<p>This will load the graph in <tt class="docutils literal"><span class="pre">example.gpickle</span></tt>, compute eigenvector centrality and communities, and save output to <tt class="docutils literal"><span class="pre">result.gexf</span></tt></p>
-<p><tt class="docutils literal"><span class="pre">hermes</span> <span class="pre">-g</span> <span class="pre">-i</span> <span class="pre">example.gpickle</span> <span class="pre">-o</span> <span class="pre">result</span></tt></p>
-<p>This will throw an error as hermes will try to load <tt class="docutils literal"><span class="pre">example.gpickle</span></tt> as a <tt class="docutils literal"><span class="pre">.gexf</span></tt> file.</p>
 </div>
 </div>
 
@@ -146,7 +145,6 @@
 </li>
 <li><a class="reference internal" href="#output-file-options">Output file options</a></li>
 <li><a class="reference internal" href="#command-arguments">Command arguments</a></li>
-<li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 </ul>
