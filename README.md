@@ -35,9 +35,9 @@ To test Hermes, run::
 
 This will do the following things:
 
-1) Call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``.
-2) Trigger command ``hermes`` to create the output, ``/Hermes/out.csv``, with all centrality measures and detected communities as node attributes.
-3) Convert ``/Hermes/out.csv`` and ``/Hermes/test/data/edge-list.csv`` to ``out.gexf``.
+1. Call ``/Hermes/test/test.py`` to create a random edge-list and a node-list under the directory ``/Hermes/test/data``.
+2. Trigger command ``hermes`` to create the output, ``/Hermes/out.csv``, with all centrality measures and detected communities as node attributes.
+3. Convert ``/Hermes/out.csv`` and ``/Hermes/test/data/edge-list.csv`` to ``out.gexf``.
 
 ## Documentation
 
