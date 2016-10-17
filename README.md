@@ -1,4 +1,4 @@
-# Hermes 0.1
+# Hermes 0.2
 
 Hermes is a command-line tool for network science.It is based on [NetworkX](https://networkx.github.io/) and [python-louvain](http://perso.crans.org/aynaud/communities/).
 
