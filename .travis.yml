@@ -1,9 +1,7 @@
 language: python
 python:
   - "2.7"
-install:
-  - make install
-  - sudo make install
+install: make install
 script: make test_hermes
 notifications:
   email:
