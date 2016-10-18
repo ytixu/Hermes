@@ -22,7 +22,7 @@ def getDegreeCentrality(G, preserved=True, in_degree=True):
 def getInDegreeCentrality(G, preserved=True):
 	return getDegreeCentrality(G, preserved)
 
-def getOutDegreeCentrality(G, preversed=True):
+def getOutDegreeCentrality(G, preserved=True):
 	return getDegreeCentrality(G, preserved, False)
 
 def getClosenessCentrality(G, setting, preserved=True):
@@ -59,7 +59,7 @@ def getEigenvectorCentrality(G, setting, preserved=True):
 def getCentrality(G, setting, preserved=True):
 	if G.__class__.__name__ == 'DiGraph':
 		getInDegreeCentrality(G, preserved)
-		getOutDegreeCentrality(G, preversed)
+		getOutDegreeCentrality(G, preserved)
 	else:
 		getDegreeCentrality(G, preserved)
 

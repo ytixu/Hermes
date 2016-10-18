@@ -96,7 +96,7 @@ You can choose which analysis for hermes to run.
 
 ``centrality``: compute all centrality values (depending on whether the graph is directed or not)
 
-``modularity``: preform community detection
+``modularity``: preform community detection (only for non-directed graph)
 
 If no command is inputted as an argument, hermes will run the analysis for ``centrality`` and ``modularity``. For customizing this behavior, refer to `Customize Hermes > Default command-line arguments <./custom_configurations.html#default-command-line-arguments>`_.
 
