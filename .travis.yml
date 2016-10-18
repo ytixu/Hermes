@@ -1,0 +1,13 @@
+language: python
+python:
+  - "2.7"
+install:
+  - make install
+  - sudo make install
+script: make test_hermes
+notifications:
+  email:
+    recipients:
+      - yi.t.xu@mail.mcgill.ca
+  on_success: never
+  on_failure: always

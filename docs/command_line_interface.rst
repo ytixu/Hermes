@@ -28,7 +28,7 @@ Input file options and requirements
 
 Edge-lists must have a header that includes ``source`` and ``target``, indicating the columns for the unique identifiers of the source and target nodes.
 
-``label`` and ``weight`` can also be added as edge attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
+``label`` and ``weight`` can also be added as edge attributes but are not required. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
 Use ``-e`` or ``--edge-list`` to input file of this format.
 
@@ -50,7 +50,7 @@ Example::
 
 Note-lists must have a header that includes ``id``, indicating the column for the unique identifier of the node.
 
-``label`` and ``weight`` can also be added as node attributes. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
+``label`` and ``weight`` can also be added as node attributes but are not required. For customizing the header, refer to `Customize Hermes > Constructor <./custom_configurations.html#constructor>`_.
 
 Use ``-n`` or ``--node-list`` to input file of this format.
 
