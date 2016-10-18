@@ -2,7 +2,7 @@
 Installation
 ============
 
-Clone the github repository or download the source code from
+Clone the Github repository or download the source code from
 
 https://github.com/ytixu/Hermes
 

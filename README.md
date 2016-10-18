@@ -13,7 +13,7 @@ Key features:
 
 ### Installation
 
-Clone this github repository or download the source.
+Clone this Github repository or download the source.
 
 Go to the directory ``/Hermes`` and run
 

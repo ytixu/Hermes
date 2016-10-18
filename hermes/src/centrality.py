@@ -52,6 +52,10 @@ def getEigenvectorCentrality(G, setting, preserved=True):
 	if preserved:
 		_add_to_graph(G, eg, 'eigenvector_centrality')
 
+
+###
+# Compute all the centrality measures
+#
 def getCentrality(G, setting, preserved=True):
 	if G.__class__.__name__ == 'DiGraph':
 		getInDegreeCentrality(G, preserved)

@@ -18,12 +18,14 @@ def _formatUsage(setting):
 	return '''Usage:
 	hermes [convert] [-n <node-list-file-name>] [-e <edge-list-file-name>] [-d] [-o <output-file-name>] [<command>] [<command>] [<command>] ...
 
-	-n, --node-list\tinput node list file name (CSV) (default = %s)
-	-e, --edge-list\tinput edge list file name (CSV) (default = %s)
+	-n, --node-list\tinput node list file name (CSV)
+	-e, --edge-list\tinput edge list file name (CSV)
 	-d, --directed\tconstuct directed graph
 	-o, --ofile\toutput file name (CSV or GEXF) (default = %s-node.csv)
 
 	convert\t\tconvert CSV files to GEXF file (default input files = %s %s, output file = %s.gexf)
+
+default node list: %s; and edge-list: %s
 
 Commands:
 	degree-centrality\tcompute degree centrality (default to in-degree if the graph is directed)
@@ -39,9 +41,9 @@ default command(s) = %s
 
 Use -h or --help to show usage information.
 	''' % (
+		setting.get('Default', 'output-file'),
 		setting.get('Default', 'node-list'),
 		setting.get('Default', 'edge-list'),
-		setting.get('Default', 'output-file'),
 		setting.get('Default', 'convert-node-list'),
 		setting.get('Default', 'convert-edge-list'),
 		setting.get('Default', 'output-file'),
@@ -65,8 +67,8 @@ def _validateFile(file_name):
 
 def _getInputFiles(opts, setting, prefix = ''):
 	directed = False
-	node_list = setting.get('Default', prefix+'node-list')
-	edge_list = setting.get('Default', prefix+'edge-list')
+	node_list = None
+	edge_list = None
 	output_file = setting.get('Default', 'output-file')
 
 	for opt, arg in opts:
@@ -81,6 +83,11 @@ def _getInputFiles(opts, setting, prefix = ''):
 		elif opt in ('-o', '--ofile'):
 			output_file = arg
 
+	if not node_list and not edge_list:
+		node_list = setting.get('Default', prefix+'node-list')
+		edge_list = setting.get('Default', prefix+'edge-list')
+
+	# print 'Opening files %s %s' % (edge_list, node_list)
 	return (directed, node_list, edge_list, output_file)
 
 def _getGraph(edge_list, node_list, directed, constructor_setting):

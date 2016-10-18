@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Command-Line Interface &mdash; hermes 0.1 documentation</title>
+    <title>Command-Line Interface &mdash; hermes 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1',
+        VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="hermes 0.1 documentation" href="index.html" />
+    <link rel="top" title="hermes 0.2 documentation" href="index.html" />
     <link rel="next" title="Customize Hermes" href="custom_configurations.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">hermes 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -75,9 +75,9 @@
 <h2>Input file options and requirements<a class="headerlink" href="#input-file-options-and-requirements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-edge-list-format">
 <h3>1. The edge-list format<a class="headerlink" href="#the-edge-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Edge-lists must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>, indicating the columns for the unique indentifiers of the source and target nodes.</p>
+<p>Edge-lists must have a header that includes <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt>, indicating the columns for the unique identifiers of the source and target nodes.</p>
 <p><tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as edge attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
-<p>Use <tt class="docutils literal"><span class="pre">-e</span></tt> or <tt class="docutils literal"><span class="pre">--edge-list</span></tt> to input file of this format. If no file is provided, Hermes will by default use <tt class="docutils literal"><span class="pre">edge-list.csv</span></tt>.</p>
+<p>Use <tt class="docutils literal"><span class="pre">-e</span></tt> or <tt class="docutils literal"><span class="pre">--edge-list</span></tt> to input file of this format.</p>
 <p>Use <tt class="docutils literal"><span class="pre">-d</span></tt> or <tt class="docutils literal"><span class="pre">--directed</span></tt> to indicate that the graph is directed.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">source</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">weigth</span>
@@ -92,9 +92,9 @@
 </div>
 <div class="section" id="the-node-list-format">
 <h3>2. The node-list format<a class="headerlink" href="#the-node-list-format" title="Permalink to this headline">¶</a></h3>
-<p>Note-lists must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>, indicating the column for the unique indentifier of the node.</p>
+<p>Note-lists must have a header that includes <tt class="docutils literal"><span class="pre">id</span></tt>, indicating the column for the unique identifier of the node.</p>
 <p><tt class="docutils literal"><span class="pre">label</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> can also be added as node attributes. For customizing the header, refer to <a class="reference external" href="./custom_configurations.html#constructor">Customize Hermes &gt; Constructor</a>.</p>
-<p>Use <tt class="docutils literal"><span class="pre">-n</span></tt> or <tt class="docutils literal"><span class="pre">--node-list</span></tt> to input file of this format. If no file is provided, Hermes will by default use <tt class="docutils literal"><span class="pre">node-list.csv</span></tt>.</p>
+<p>Use <tt class="docutils literal"><span class="pre">-n</span></tt> or <tt class="docutils literal"><span class="pre">--node-list</span></tt> to input file of this format.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">id</span><span class="p">,</span><span class="n">label</span><span class="p">,</span><span class="n">weigth</span>
 <span class="mi">1</span><span class="p">,</span><span class="n">Lemuria</span><span class="p">,</span><span class="mi">323</span>
@@ -106,12 +106,13 @@
 </pre></div>
 </div>
 <p>Node-lists allow users to specify more information about the nodes. User may choose to only input an edge-list if no such information is needed.</p>
+<p>If no edge-list and no node-list files are provided, Hermes will by default use <tt class="docutils literal"><span class="pre">edge-list.csv</span></tt> and <tt class="docutils literal"><span class="pre">node-list.csv</span></tt>. For customizing the default input file, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
 </div>
 </div>
 <div class="section" id="output-file-options">
 <h2>Output file options<a class="headerlink" href="#output-file-options" title="Permalink to this headline">¶</a></h2>
 <p>Use <tt class="docutils literal"><span class="pre">-o</span></tt> or <tt class="docutils literal"><span class="pre">--ofile</span></tt> to indicate the output file name (file extension can be ommitted).</p>
-<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out-node-list.csv</span></tt> or <tt class="docutils literal"><span class="pre">out.gexf</span></tt> by default.</p>
+<p>If no output file name is inputted, hermes will output to <tt class="docutils literal"><span class="pre">out-node-list.csv</span></tt> or <tt class="docutils literal"><span class="pre">out.gexf</span></tt> by default. For customizing the default output file, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
 </div>
 <div class="section" id="command-arguments">
 <h2>Command arguments<a class="headerlink" href="#command-arguments" title="Permalink to this headline">¶</a></h2>
@@ -124,7 +125,7 @@
 <p><tt class="docutils literal"><span class="pre">eigenvector-centrality</span></tt>: compute eigenvector centrality</p>
 <p><tt class="docutils literal"><span class="pre">centrality</span></tt>: compute all centrality values (depending on whether the graph is directed or not)</p>
 <p><tt class="docutils literal"><span class="pre">modularity</span></tt>: preform community detection</p>
-<p>If no command is inputted as an argument, hermes will run the analysis for <tt class="docutils literal"><span class="pre">centality</span></tt> and <tt class="docutils literal"><span class="pre">modularity</span></tt>. For customizing this behavior, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
+<p>If no command is inputted as an argument, hermes will run the analysis for <tt class="docutils literal"><span class="pre">centrality</span></tt> and <tt class="docutils literal"><span class="pre">modularity</span></tt>. For customizing this behavior, refer to <a class="reference external" href="./custom_configurations.html#default-command-line-arguments">Customize Hermes &gt; Default command-line arguments</a>.</p>
 <p>All centrality measures are computed using NetworkX. Modularity is computed using python-louvain.</p>
 </div>
 </div>
@@ -189,7 +190,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">hermes 0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">hermes 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
