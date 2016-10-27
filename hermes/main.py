@@ -16,7 +16,7 @@ def _getConfig():
 
 def _formatUsage(setting):
 	return '''Usage:
-	hermes [convert] [-n <node-list-file-name>] [-e <edge-list-file-name>] [-d] [-o <output-file-name>] [<command>] [<command>] [<command>] ...
+	hermes [convert|products] [-n <node-list-file-name>] [-e <edge-list-file-name>] [-d] [-o <output-file-name>] [<command>] [<command>] [<command>] ...
 
 	-n, --node-list\tinput node list file name (CSV)
 	-e, --edge-list\tinput edge list file name (CSV)
@@ -97,6 +97,8 @@ def _getGraph(edge_list, node_list, directed, constructor_setting):
 	else:
 		_formatErrorAndExit('No input file, edge list or node list.')
 
+### Main functionalities
+
 def convert(argv, setting):
 	try:
 		opts, args = getopt.getopt(argv[2:],'n:e:o:d',['node-list=','edge-list=','ofile=', 'directed'])
@@ -110,6 +112,15 @@ def convert(argv, setting):
 
 	file_name = construct.dumpToGephi(G, output_file)
 	print 'Outputting to GEXF %s' % (file_name)
+
+def products(argv, setting):
+	try:
+		opts, args = getopt.getopt(argv[2:],'p:o:',['product-list=','ofile='])
+	except getopt.GetoptError:
+		_formatErrorAndExit('Invalid input options or arguments.')
+
+	
+
 
 def main(argv, setting):
 	try:
@@ -162,6 +173,8 @@ if __name__ == "__main__":
 
 	if len(argv) > 1 and argv[1] == 'convert':
 		convert(argv, setting)
+	if len(argv) > 1 and argv[1] == 'products':
+		products(argv, setting)
 	else:
 		main(argv, setting)
 

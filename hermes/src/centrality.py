@@ -1,6 +1,6 @@
 import networkx as nx
 
-from utils import _add_to_graph, _get_section_config
+from utils.utils import _add_to_graph, _get_section_config
 
 def getDegreeCentrality(G, preserved=True, in_degree=True):
 	dc = {}

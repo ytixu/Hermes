@@ -1,12 +1,7 @@
 import csv
 import networkx as nx
 
-
-###
-# Helper for getting CSV file delimiter from config file
-#
-def _getDelimiter(setting):
-	return setting('delimiter') if setting('delimiter') != 'tab' else '\t'
+from utils.utils import _getDelimiter
 
 ###
 # Build graph from node-list
