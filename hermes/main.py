@@ -6,6 +6,7 @@ import hermes
 import hermes.src.construct as construct
 import hermes.src.centrality as centrality
 import hermes.src.modularity as modularity
+import hermes.src.modules.products as productModule
 from hermes.src.utils import _get_section_config
 
 def _getConfig():
@@ -119,7 +120,15 @@ def products(argv, setting):
 	except getopt.GetoptError:
 		_formatErrorAndExit('Invalid input options or arguments.')
 
-	
+	output_file = setting.get('Default', 'output-file')
+	product_file = setting.get('Default', 'product-list')
+
+	print 'Parsing products in %s' % (product_file)
+	G = productModule.getGraph(product_file, _get_section_config(setting, 'Product'))
+
+	if output_file:
+		file_names = construct.dumpToCsv(G, output_file, _get_section_config(setting, 'Constructor'))
+		print 'Outputting to CSV %s' % (file_names)
 
 
 def main(argv, setting):
