@@ -137,16 +137,16 @@ def _edgeGen(G):
 def dumpToCsv(G, file_name, setting):
 	# Dump node list
 	header = ['ID'] + G.nodes(data=True)[0][1].keys()
-	# node_file = _dumpCsv(G, _formatFileName(file_name, 'node', '-'), header, _nodeGen(G), setting)
-	node_file = _dumpCsv(G, file_name, header, _nodeGen(G), setting)
+	node_file = _dumpCsv(G, _formatFileName(file_name, 'node', '-'), header, _nodeGen(G), setting)
+	# node_file = _dumpCsv(G, file_name, header, _nodeGen(G), setting)
 
 	# FOR LATER USE
 	# Dump node edges
-	# header = ['SOURCE', 'TARGET'] + G.edges(data=True)[0][2].keys()
-	# edges_file = _dumpCsv(G, _formatFileName(file_name, 'edge', '-'), header, _edgeGen(G), setting)
+	header = ['SOURCE', 'TARGET'] + G.edges(data=True)[0][2].keys()
+	edges_file = _dumpCsv(G, _formatFileName(file_name, 'edge', '-'), header, _edgeGen(G), setting)
 
-	# return (node_file, edges_file)
-	return node_file
+	return (node_file, edges_file)
+	# return node_file
 
 ###
 # Save new graph to GEXF file

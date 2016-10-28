@@ -1,7 +1,7 @@
 import networkx as nx
 
 def _get_section_config(setting, name):
-   return lambda x: setting.get(name, x)
+   return lambda x: setting.get(name, x) if (',' not in setting.get(name, x) or len(setting.get(name, x)) < 3) else setting.get(name, x).split(',')
 
 def _add_to_graph(G, new_attrs, attr_name):
   for node, val in new_attrs.iteritems():

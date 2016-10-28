@@ -6,8 +6,8 @@ import hermes
 import hermes.src.construct as construct
 import hermes.src.centrality as centrality
 import hermes.src.modularity as modularity
-import hermes.src.modules.products as productModule
-from hermes.src.utils import _get_section_config
+import hermes.src.modules.product as productModule
+from hermes.src.utils.utils import _get_section_config
 
 def _getConfig():
 	packagedir = hermes.__path__[0]
@@ -123,13 +123,22 @@ def products(argv, setting):
 	output_file = setting.get('Default', 'output-file')
 	product_file = setting.get('Default', 'product-list')
 
+	for opt, arg in opts:
+		if opt in ('-p', '--product-list'):
+			_validateFile(arg)
+			product_file = arg
+		elif opt in ('-o', '--ofile'):
+			output_file = arg
+
 	print 'Parsing products in %s' % (product_file)
 	G = productModule.getGraph(product_file, _get_section_config(setting, 'Product'))
 
+	print 'Computing modularity'
+	modularity.louvainModularity(G)
+
 	if output_file:
 		file_names = construct.dumpToCsv(G, output_file, _get_section_config(setting, 'Constructor'))
-		print 'Outputting to CSV %s' % (file_names)
-
+		print 'Outputting to CSV %s %s' % file_names
 
 def main(argv, setting):
 	try:
@@ -174,7 +183,7 @@ def main(argv, setting):
 
 	if output_file:
 		file_names = construct.dumpToCsv(G, output_file, constructor_setting)
-		print 'Outputting to CSV %s' % (file_names)
+		print 'Outputting to CSV %s %s' % file_names
 
 if __name__ == "__main__":
 	setting = _getConfig()
