@@ -140,25 +140,25 @@ def getStoreGraph(file_name, setting, product_id=None):
 
 			if nodes[store] not in edges[prod]:
 				edges[prod][nodes[store]] = {
-					'count': 0,
-					'price': 0
+					'count': 0.0,
+					'price': 0.0
 				}
 
 			if int(row[keys[direction_column]]):
-				edges[prod][nodes[store]]['count'] += -1
+				edges[prod][nodes[store]]['count'] += -1.0
 				edges[prod][nodes[store]]['price'] += -float(row[keys[sold_price_column]])
 			else:
-				edges[prod][nodes[store]]['count'] += 1
+				edges[prod][nodes[store]]['count'] += 1.0
 				edges[prod][nodes[store]]['price'] += float(row[keys[sold_price_column]])
 
-	for edge in edges:
-		for s1 in edge:
-			for s2 in edge:
-				if s1 > s2:
+	for edge, nodes in edges.iteritems():
+		for s1 in nodes:
+			for s2 in nodes:
+				if s1 >= s2:
 					continue
 				G.add_edge(s1, s2, {
-					count: _percent_diff(edge[s1]['count'], edge[s2]['count']),
-					price: _percent_diff(edge[s1]['price'], edge[s2]['price'])
+					'count': _percent_diff(nodes[s1]['count'], nodes[s2]['count']),
+					'price': _percent_diff(nodes[s1]['price'], nodes[s2]['price'])
 				})
 
 	return G

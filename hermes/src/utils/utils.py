@@ -15,7 +15,13 @@ def _getDelimiter(setting):
 	return setting('delimiter') if setting('delimiter') != 'tab' else '\t'
 
 
-def _progress_bar(update):
+###
+# UI
+#
+def _progress_bar(update, percent=False):
 	sys.stdout.write('\r')
-	sys.stdout.write("[%d]" % (update))
+	if percent:
+		sys.stdout.write("[%d]" % (update))
+	else:
+		sys.stdout.write("[%d]" % (update))
 	sys.stdout.flush()

@@ -6,6 +6,7 @@ import hermes
 import hermes.src.construct as construct
 import hermes.src.centrality as centrality
 import hermes.src.modularity as modularity
+import hermes.src.growth as growth
 import hermes.src.modules.product as productModule
 from hermes.src.utils.utils import _get_section_config
 
@@ -138,15 +139,25 @@ def products(argv, setting):
 	print 'Computing modularity'
 	modularity.louvainModularityByComponent(G, product_setting)
 
-	if output_file:
-		file_names = construct.dumpToCsv(G, output_file+'_products', _get_section_config(setting, 'Constructor'))
-		print 'Outputting to CSV %s %s' % file_names
+	file_names = construct.dumpToCsv(G, output_file+'_products', _get_section_config(setting, 'Constructor'))
+	print 'Outputting to CSV %s %s' % file_names
 
-		print 'Getting store graph'
-		G = productModule.getStoreGraph(file_names[0], product_setting, 'louvain_community')
+	print 'Getting store graph'
+	G = productModule.getStoreGraph(file_names[0], product_setting, 'louvain_community')
 
-		file_names = construct.dumpToCsv(G, output_file+'_stores', _get_section_config(setting, 'Constructor'))
-		print 'Outputting to CSV %s %s' % file_names
+	file_names = construct.dumpToCsv(G, output_file+'_stores', _get_section_config(setting, 'Constructor'))
+	print 'Outputting to CSV %s %s' % file_names
+
+	print 'Computing by COUNT'
+	swappableG = growth.growBySwapEdges(G, lambda x: True if x['count'] < product_setting('count_th') else False)
+	p_vals = growth.growthStatistics(swappableG, 1, ['triangles', 'number_connected_components'])
+	print p_vals
+
+	print 'Computing by PRICE'
+	swappableG = growth.growBySwapEdges(G, lambda x: True if x['count'] < product_setting('count_th') else False)
+	p_vals = growth.growthStatistics(swappableG, 1, ['triangles', 'number_connected_components'])
+	print p_vals
+
 
 def main(argv, setting):
 	try:
