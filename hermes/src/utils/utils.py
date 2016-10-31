@@ -21,7 +21,7 @@ def _getDelimiter(setting):
 def _progress_bar(update, percent=False):
 	sys.stdout.write('\r')
 	if percent:
-		sys.stdout.write("[%d]" % (update))
+		sys.stdout.write("[%.0f]" % (update))
 	else:
 		sys.stdout.write("[%d]" % (update))
 	sys.stdout.flush()

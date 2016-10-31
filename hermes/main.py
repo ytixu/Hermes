@@ -149,13 +149,13 @@ def products(argv, setting):
 	print 'Outputting to CSV %s %s' % file_names
 
 	print 'Computing by COUNT'
-	swappableG = growth.growBySwapEdges(G, lambda x: True if x['count'] < product_setting('count_th') else False)
-	p_vals = growth.growthStatistics(swappableG, 1, ['triangles', 'number_connected_components'])
+	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['count']) < float(product_setting('count_th')) else False)
+	p_vals = growth.growthStatistics(swappableG, 5, ['triangles', 'number_connected_components'])
 	print p_vals
 
 	print 'Computing by PRICE'
-	swappableG = growth.growBySwapEdges(G, lambda x: True if x['count'] < product_setting('count_th') else False)
-	p_vals = growth.growthStatistics(swappableG, 1, ['triangles', 'number_connected_components'])
+	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['price']) < float(product_setting('price_th')) else False)
+	p_vals = growth.growthStatistics(swappableG, 5, ['triangles', 'number_connected_components'])
 	print p_vals
 
 
