@@ -4,6 +4,7 @@ dist/*
 *.gexf
 *.gpickle
 *.csv
+*.sql
 test/data/*
 hermes/src/*.pyc
 hermes/*.pyc

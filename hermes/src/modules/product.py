@@ -57,7 +57,7 @@ def _compute_score(a, b, attr, setting):
 
 	return score
 
-def getGraph(file_name, setting):
+def getProductGraph(file_name, setting):
 	G = nx.Graph()
 	properties = {}
 	node_attr = {}
@@ -106,3 +106,62 @@ def getGraph(file_name, setting):
 
 	print 'done'
 	return G
+
+def getStoreGraph(file_name, setting, product_id=None):
+	G = nx.Graph()
+	edges = {}
+	nodes = {}
+	count = 0
+	keys = None
+	store_id = setting('store_id')
+	direction_column = setting('direction_column')
+	sold_price_column = setting('sold_price_column')
+	if not product_id:
+		product_id = setting('product_id')
+
+	with open(file_name, 'r') as csv_file:
+		reader = csv.reader(csv_file, delimiter=_getDelimiter(setting), quotechar=setting('quotechar'))
+		for i, row in enumerate(reader):
+			_progress_bar(i)
+			if i == 0:
+				keys = {name: index for index, name in enumerate(row)}
+				continue
+
+			prod = row[keys[product_id]]
+			store = row[keys[store_id]]
+
+			if store not in nodes:
+				nodes[store] = count
+				G.add_node(count, {'label':store})
+				count += 1
+
+			if prod not in edges:
+				edges[prod] = {}
+
+			if nodes[store] not in edges[prod]:
+				edges[prod][nodes[store]] = {
+					'count': 0,
+					'price': 0
+				}
+
+			if int(row[keys[direction_column]]):
+				edges[prod][nodes[store]]['count'] += -1
+				edges[prod][nodes[store]]['price'] += -float(row[keys[sold_price_column]])
+			else:
+				edges[prod][nodes[store]]['count'] += 1
+				edges[prod][nodes[store]]['price'] += float(row[keys[sold_price_column]])
+
+	for edge in edges:
+		for s1 in edge:
+			for s2 in edge:
+				if s1 > s2:
+					continue
+				G.add_edge(s1, s2, {
+					count: _percent_diff(edge[s1]['count'], edge[s2]['count']),
+					price: _percent_diff(edge[s1]['price'], edge[s2]['price'])
+				})
+
+	return G
+
+
+

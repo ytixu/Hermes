@@ -133,13 +133,19 @@ def products(argv, setting):
 	product_setting = _get_section_config(setting, 'Product')
 
 	print 'Parsing products in %s' % (product_file)
-	G = productModule.getGraph(product_file, product_setting)
+	G = productModule.getProductGraph(product_file, product_setting)
 
 	print 'Computing modularity'
 	modularity.louvainModularityByComponent(G, product_setting)
 
 	if output_file:
-		file_names = construct.dumpToCsv(G, output_file, _get_section_config(setting, 'Constructor'))
+		file_names = construct.dumpToCsv(G, output_file+'_products', _get_section_config(setting, 'Constructor'))
+		print 'Outputting to CSV %s %s' % file_names
+
+		print 'Getting store graph'
+		G = productModule.getStoreGraph(file_names[0], product_setting, 'louvain_community')
+
+		file_names = construct.dumpToCsv(G, output_file+'_stores', _get_section_config(setting, 'Constructor'))
 		print 'Outputting to CSV %s %s' % file_names
 
 def main(argv, setting):
