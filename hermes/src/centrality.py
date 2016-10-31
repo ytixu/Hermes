@@ -18,6 +18,8 @@ def getDegreeCentrality(G, preserved=True, in_degree=True):
 
 	if preserved:
 		_add_to_graph(G, dc, name)
+	else:
+		return dc
 
 def getInDegreeCentrality(G, preserved=True):
 	return getDegreeCentrality(G, preserved)
@@ -32,6 +34,8 @@ def getClosenessCentrality(G, setting, preserved=True):
 	cl = nx.closeness_centrality(G, u, distance, normalized)
 	if preserved:
 		_add_to_graph(G, cl, 'closeness_centrality')
+	else:
+		return cl
 
 def getBetweennessCentrality(G, setting, preserved=True):
 	k = setting('k') if setting('k') else None
@@ -42,6 +46,8 @@ def getBetweennessCentrality(G, setting, preserved=True):
 	bt = nx.betweenness_centrality(G, k, normalized, weight, endpoints, seed)
 	if preserved:
 		_add_to_graph(G, bt, 'betweenness_centrality')
+	else:
+		return bt
 
 def getEigenvectorCentrality(G, setting, preserved=True):
 	max_iter = int(setting('max_iter'))
@@ -51,7 +57,8 @@ def getEigenvectorCentrality(G, setting, preserved=True):
 	eg = nx.eigenvector_centrality(G, max_iter, tol, nstart, weight)
 	if preserved:
 		_add_to_graph(G, eg, 'eigenvector_centrality')
-
+	else:
+		return eg
 
 ###
 # Compute all the centrality measures

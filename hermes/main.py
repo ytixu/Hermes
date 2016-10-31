@@ -130,11 +130,13 @@ def products(argv, setting):
 		elif opt in ('-o', '--ofile'):
 			output_file = arg
 
+	product_setting = _get_section_config(setting, 'Product')
+
 	print 'Parsing products in %s' % (product_file)
-	G = productModule.getGraph(product_file, _get_section_config(setting, 'Product'))
+	G = productModule.getGraph(product_file, product_setting)
 
 	print 'Computing modularity'
-	modularity.louvainModularity(G)
+	modularity.louvainModularityByComponent(G, product_setting)
 
 	if output_file:
 		file_names = construct.dumpToCsv(G, output_file, _get_section_config(setting, 'Constructor'))

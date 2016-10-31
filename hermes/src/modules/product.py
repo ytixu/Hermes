@@ -76,6 +76,9 @@ def getGraph(file_name, setting):
 			for j, val in enumerate(row):
 				key = keys[j]
 				if _not_null(val):
+					if _get_setting(setting, 'product_id') == key:
+						key = 'label'
+						
 					if _is_not_price(key, setting):
 						prop_key = key+'-'+val
 						if key in _get_setting(setting, 'must_match'):

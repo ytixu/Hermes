@@ -11,3 +11,34 @@ def louvainModularity(G, preserved=True):
 	partition = community.best_partition(G)
 	if preserved:
 		_add_to_graph(G, partition, 'louvain_community')
+	else:
+		return partition
+
+def connectedComponents(G, preserved=True):
+	components = nx.connected_components(G)
+	
+	if preserved:
+		_add_to_graph(G, components, 'connected_components')
+	else:
+		return components
+
+def louvainModularityByComponent(G, setting, preserved=True):
+	components = nx.connected_components(G)
+	directed = True if G.__class__.__name__ == 'DiGraph' else False
+	t = float(setting('t'))
+	n = G.number_of_nodes()
+	count = 0
+
+	for nodes in components:
+		if len(nodes) * 1.0 / n < t:
+			if preserved:
+				_add_to_graph(G, {node: count for node in nodes}, 'louvain_community')
+			count += 1
+			continue
+
+		subG = G.subgraph(nodes)
+		partition = community.best_partition(G)
+		if preserved:
+			_add_to_graph(G, {node: count+comm for node, comm in partition.iteritems()}, 'louvain_community')
+
+		count += len(partition) 
