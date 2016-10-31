@@ -1,7 +1,7 @@
 import community
 import networkx as nx
 
-from utils.utils import _add_to_graph
+from utils.utils import _add_to_graph, _progress_bar
 
 def louvainModularity(G, preserved=True):
 	if G.__class__.__name__ == 'DiGraph':
@@ -29,7 +29,9 @@ def louvainModularityByComponent(G, setting, preserved=True):
 	n = G.number_of_nodes()
 	count = 0
 
-	for nodes in components:
+	for i, nodes in enumerate(components):
+		_progress_bar(i)
+
 		if len(nodes) * 1.0 / n < t:
 			if preserved:
 				_add_to_graph(G, {node: count for node in nodes}, 'louvain_community')
@@ -42,3 +44,4 @@ def louvainModularityByComponent(G, setting, preserved=True):
 			_add_to_graph(G, {node: count+comm for node, comm in partition.iteritems()}, 'louvain_community')
 
 		count += len(partition) 
+	print 'done'

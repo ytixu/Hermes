@@ -1,7 +1,7 @@
 import csv
 import networkx as nx
 
-from hermes.src.utils.utils import _getDelimiter
+from hermes.src.utils.utils import _getDelimiter, _progress_bar
 
 setting_cache = {}
 
@@ -66,7 +66,7 @@ def getGraph(file_name, setting):
 		reader = csv.reader(csv_file, delimiter=_getDelimiter(setting), quotechar=setting('quotechar'))
 		keys = []
 		for i, row in enumerate(reader):
-			print i
+			_progress_bar(i)
 			if i == 0:
 				keys = row
 				continue
@@ -78,7 +78,7 @@ def getGraph(file_name, setting):
 				if _not_null(val):
 					if _get_setting(setting, 'product_id') == key:
 						key = 'label'
-						
+
 					if _is_not_price(key, setting):
 						prop_key = key+'-'+val
 						if key in _get_setting(setting, 'must_match'):
@@ -104,4 +104,5 @@ def getGraph(file_name, setting):
 			# if i > 40:
 			# 	break
 
+	print 'done'
 	return G
