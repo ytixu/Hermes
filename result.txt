@@ -10,3 +10,19 @@ Computing by PRICE
 [100] done triangles
 [100] done number_connected_components
 {'number_connected_components': {'sample': 5, 'p': 2.3863813296887706, 'var': 1.5803964456596036, 'mean': 1.2285714285714286}, 'triangles': {'sample': 141, 'p': 0.42889096971338314, 'var': 289.6173957621326, 'mean': 16.785714285714285}}
+
+
+
+
+Computing by COUNT
+# nodes: 40
+# edges: 86
+[100] done triangles
+[100] done number_connected_components
+{'number_connected_components': {'sample': 3, 'p': 1.8440558732497474, 'var': 1.0546724902497562, 'mean': 1.055125}, 'triangles': {'sample': 288, 'p': 0.0843783665988051, 'var': 2768.6397523048076, 'mean': 54.3867}}
+Computing by PRICE
+# nodes: 42
+# edges: 69
+[100] done triangles
+[100] done number_connected_components
+{'number_connected_components': {'sample': 5, 'p': 2.2913427666279373, 'var': 1.6358779652916906, 'mean': 1.251642857142857}, 'triangles': {'sample': 141, 'p': 0.4552471598150719, 'var': 274.1659843962271, 'mean': 16.186714285714285}}

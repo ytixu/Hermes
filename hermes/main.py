@@ -150,12 +150,12 @@ def products(argv, setting):
 
 	print 'Computing by COUNT'
 	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['count']) < float(product_setting('count_th')) else False)
-	p_vals = growth.growthStatistics(swappableG, 5, ['triangles', 'number_connected_components'])
+	p_vals = growth.growthStatistics(swappableG, 1000, ['triangles', 'number_connected_components'])
 	print p_vals
 
 	print 'Computing by PRICE'
 	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['price']) < float(product_setting('price_th')) else False)
-	p_vals = growth.growthStatistics(swappableG, 5, ['triangles', 'number_connected_components'])
+	p_vals = growth.growthStatistics(swappableG, 1000, ['triangles', 'number_connected_components'])
 	print p_vals
 
 
