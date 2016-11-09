@@ -8,7 +8,7 @@ import hermes.src.centrality as centrality
 import hermes.src.modularity as modularity
 import hermes.src.growth as growth
 import hermes.src.modules.product as productModule
-from hermes.src.utils.utils import _get_section_config
+from hermes.src.utils.utils import _get_section_config, _get_edge_attr_stats
 
 def _getConfig():
 	packagedir = hermes.__path__[0]
@@ -148,17 +148,21 @@ def products(argv, setting):
 	file_names = construct.dumpToCsv(G, output_file+'_stores', _get_section_config(setting, 'Constructor'))
 	print 'Outputting to CSV %s %s' % file_names
 
-	print 'Computing by COUNT'
-	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['count']) < float(product_setting('count_th')) else False)
-	# file_names = construct.dumpToCsv(swappableG.randomize_by_edge_swaps(5), output_file+'_random_COUNT', _get_section_config(setting, 'Constructor'))
-	p_vals = growth.growthStatistics(swappableG, 1000, ['graph_clique_number', 'number_connected_components'])
-	print p_vals
+	mean, std = _get_edge_attr_stats(G, 'count')
+	th = -1.28 * std + mean
+	print th, mean, std
 
-	print 'Computing by PRICE'
-	swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['price']) < float(product_setting('price_th')) else False)
-	# file_names = construct.dumpToCsv(swappableG.randomize_by_edge_swaps(5), output_file+'_random_PRICE', _get_section_config(setting, 'Constructor'))
-	p_vals = growth.growthStatistics(swappableG, 1000, ['graph_clique_number', 'number_connected_components'])
-	print p_vals
+	# print 'Computing by COUNT'
+	# swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['count']) < float(product_setting('count_th')) else False)
+	# # file_names = construct.dumpToCsv(swappableG.randomize_by_edge_swaps(5), output_file+'_random_COUNT', _get_section_config(setting, 'Constructor'))
+	# p_vals = growth.growthStatistics(swappableG, 1000, ['graph_clique_number', 'number_connected_components'])
+	# print p_vals
+
+	# print 'Computing by PRICE'
+	# swappableG = growth.growBySwapEdges(G, lambda x: True if float(x['price']) < float(product_setting('price_th')) else False)
+	# # file_names = construct.dumpToCsv(swappableG.randomize_by_edge_swaps(5), output_file+'_random_PRICE', _get_section_config(setting, 'Constructor'))
+	# p_vals = growth.growthStatistics(swappableG, 1000, ['graph_clique_number', 'number_connected_components'])
+	# print p_vals
 
 
 def main(argv, setting):

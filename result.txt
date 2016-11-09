@@ -36,3 +36,21 @@ Computing by PRICE
 # nodes: 42
 # edges: 69
 [100]{'graph_clique_number': {'sample': 6, 'p': 22.83858764689638, 'std': 0.1308259949597622, 'mean': 3.0121190476190476}, 'number_connected_components': {'sample': 5, 'p': 7.931420852267389, 'std': 0.472776036492093, 'mean': 1.2502142857142857}}
+
+
+Parsing products in test/data/product_list_test.csv
+[129]done
+Computing modularity
+[7]done
+Outputting to CSV out_products-node.csv out_products-edge.csv
+Getting store graph
+[129]Found max model: 517
+Outputting to CSV out_stores-node.csv out_stores-edge.csv
+Computing by COUNT
+# nodes: 21
+# edges: 62
+[100]{'graph_clique_number': {'sample': 10, 'p': 9.90630155897597, 'std': 0.5272257372505261, 'mean': 4.777142857142858}, 'number_connected_components': {'sample': 4, 'p': 30.339273572487578, 'std': 0.09855840711038175, 'mean': 1.0098095238095237}}
+Computing by PRICE
+# nodes: 20
+# edges: 24
+[100]{'graph_clique_number': {'sample': 5, 'p': 7.281368282741731, 'std': 0.28077140457867356, 'mean': 2.9556}, 'number_connected_components': {'sample': 6, 'p': 6.7810740339362185, 'std': 0.6524556401918226, 'mean': 1.57565}}

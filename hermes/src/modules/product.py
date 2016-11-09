@@ -36,6 +36,8 @@ def _compute_score(a, b, attr, setting):
 	# non-float values
 	for key, val in attr[a].iteritems():
 		if key in attr[b]:
+			if key in _get_setting(setting, 'ignore_columns'):
+				continue
 			if _is_not_price(key, setting):
 				if attr[b][key] == val:
 					score += 1
@@ -118,7 +120,6 @@ def getStoreGraph(file_name, setting, product_id=None):
 	sold_price_column = setting('sold_price_column')
 	if not product_id:
 		product_id = setting('product_id')
-
 	with open(file_name, 'r') as csv_file:
 		reader = csv.reader(csv_file, delimiter=_getDelimiter(setting), quotechar=setting('quotechar'))
 		for i, row in enumerate(reader):
@@ -132,7 +133,7 @@ def getStoreGraph(file_name, setting, product_id=None):
 
 			if store not in nodes:
 				nodes[store] = count
-				G.add_node(count, {'label':store})
+				G.add_node(count, {'label':store.replace('LXR&CO ', '')})
 				count += 1
 
 			if prod not in edges:
@@ -151,15 +152,55 @@ def getStoreGraph(file_name, setting, product_id=None):
 				edges[prod][nodes[store]]['count'] += 1.0
 				edges[prod][nodes[store]]['price'] += float(row[keys[sold_price_column]])
 
+	scores = {}
+	max_model = None
+	max_length = 0
+
 	for edge, nodes in edges.iteritems():
-		for s1 in nodes:
-			for s2 in nodes:
-				if s1 >= s2:
+		if len(nodes) > max_length:
+			max_length = len(nodes)
+			max_model = edge
+
+	# for edge, nodes in edges.iteritems():
+	# 	for s1 in nodes:
+	print 'Found max model: ' + max_model 
+	for s1 in edges[max_model]:
+			for s2 in edges[max_model]:
+				if s1 == s2:
 					continue
-				G.add_edge(s1, s2, {
-					'count': _percent_diff(nodes[s1]['count'], nodes[s2]['count']),
-					'price': _percent_diff(nodes[s1]['price'], nodes[s2]['price'])
-				})
+
+				if s1 not in scores:
+					scores[s1] = {}
+
+				if s2 not in scores[s1]:
+					scores[s1][s2] = {
+						'count': 10000,
+						'price': 10000,
+						# 'n': 0
+					}
+
+				# scores[s1][s2]['count'] += _percent_diff(nodes[s1]['count'], nodes[s2]['count'])
+				# scores[s1][s2]['price'] += _percent_diff(nodes[s1]['price'], nodes[s2]['price'])
+				# scores[s1][s2]['n'] += 1
+
+				new_score = {
+					'count': _percent_diff(edges[max_model][s1]['count'], edges[max_model][s2]['count']),
+					'price': _percent_diff(edges[max_model][s1]['price'], edges[max_model][s2]['price'])
+				}
+				
+				for s_type in new_score:
+					if scores[s1][s2][s_type] > new_score[s_type]:
+						scores[s1][s2][s_type] = new_score[s_type]
+
+
+	for s1 in scores:
+		for s2 in scores[s1]:
+			G.add_edge(s1, s2, {
+				'count': scores[s1][s2]['count'],#*1.0/scores[s1][s2]['n'],
+				'price': scores[s1][s2]['price']#*1.0/scores[s1][s2]['n'],
+			})
+
+
 
 	return G
 

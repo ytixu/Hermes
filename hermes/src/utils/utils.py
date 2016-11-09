@@ -1,3 +1,4 @@
+import math
 import sys
 import networkx as nx
 
@@ -25,3 +26,23 @@ def _progress_bar(update, percent=False):
 	else:
 		sys.stdout.write("[%d]" % (update))
 	sys.stdout.flush()
+
+
+###
+# Get mean and var for an edge attribute
+#
+def _get_edge_attr_stats(G, attr):
+	sum_ = 0.0
+	sum_sq = 0.0
+	n = 0.0
+
+	for _, _, data in G.edges_iter(data=True):
+		print data
+		n += 1.0
+		sum_ += data[attr]
+		sum_sq += data[attr]*data[attr]
+
+	mean = sum_ / n
+	std = math.sqrt((sum_sq - sum_ * mean) / (n - 1))
+
+	return (mean, std)
